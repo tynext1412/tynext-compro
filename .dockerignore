@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+*.tsbuildinfo
+*.tar
+*.tar.gz
+.env*
+deploy.*.env
+deploy-*.sh
+Dockerfile
+.dockerignore
+README.md
+DESIGN.md
+AGENTS.md
