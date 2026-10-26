@@ -42,4 +42,6 @@ next-env.d.ts
 
 # deploy settings (berisi kredensial server)
 deploy.*.env
-*.tar.gz
+
+# hasil build untuk deploy
+/.deploy/

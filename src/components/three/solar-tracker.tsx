@@ -27,7 +27,7 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   const disposables: { dispose(): void }[] = [];
   const track = <T extends { dispose(): void }>(d: T) => (disposables.push(d), d);
 
-  scene.add(new THREE.HemisphereLight(0xfff6dc, 0xc9a43a, 1.6));
+  scene.add(new THREE.HemisphereLight(0xf4f8ff, 0x5e8f22, 1.6));
   const sun = new THREE.DirectionalLight(0xfff2e0, 2.4);
   sun.castShadow = true;
   sun.shadow.mapSize.set(1024, 1024);
@@ -37,13 +37,13 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   // Tanah hanya menangkap bayangan, jadi adegan menyatu dengan warna kertas halaman.
   const ground = new THREE.Mesh(
     track(new THREE.PlaneGeometry(40, 40)),
-    track(new THREE.ShadowMaterial({ color: 0x5a3d00, opacity: 0.3 })),
+    track(new THREE.ShadowMaterial({ color: 0x1d3a10, opacity: 0.3 })),
   );
   ground.rotation.x = -Math.PI / 2;
   ground.receiveShadow = true;
   scene.add(ground);
 
-  const panelMaterial = track(new THREE.MeshStandardMaterial({ color: 0x23272c, roughness: 0.35, metalness: 0.25 }));
+  const panelMaterial = track(new THREE.MeshStandardMaterial({ color: 0x17345c, roughness: 0.35, metalness: 0.25 }));
   const frameMaterial = track(new THREE.MeshStandardMaterial({ color: 0xc9c3b6, roughness: 0.6 }));
   const steelMaterial = track(new THREE.MeshStandardMaterial({ color: 0x8d8a82, roughness: 0.7 }));
   const moduleGeometry = track(new THREE.BoxGeometry(1.9, 0.05, 1.32));
@@ -90,12 +90,12 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   });
   const arc = new THREE.Line(
     track(new THREE.BufferGeometry().setFromPoints(arcPoints)),
-    track(new THREE.LineDashedMaterial({ color: 0x17181a, dashSize: 0.25, gapSize: 0.22 })),
+    track(new THREE.LineDashedMaterial({ color: 0x0e2846, dashSize: 0.25, gapSize: 0.22 })),
   );
   arc.computeLineDistances();
   scene.add(arc);
 
-  const sunMaterial = track(new THREE.MeshBasicMaterial({ color: 0xf26a2e, transparent: true }));
+  const sunMaterial = track(new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true }));
   const sunMarker = new THREE.Mesh(track(new THREE.SphereGeometry(0.42, 24, 16)), sunMaterial);
   scene.add(sunMarker);
 
@@ -149,7 +149,7 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   };
 };
 
-export function SolarTracker({ className = "" }: { className?: string }) {
+export function SolarTracker({ caption, className = "" }: { caption: string; className?: string }) {
   const container = useRef<HTMLDivElement>(null);
   const status = useThreeScene(container, setup, 5);
 
@@ -157,9 +157,7 @@ export function SolarTracker({ className = "" }: { className?: string }) {
     <figure className={`relative ${className}`}>
       {status !== "ready" && <StaticArray />}
       <div ref={container} className="absolute inset-0" />
-      <figcaption className="absolute right-0 bottom-0 font-mono text-[0.7rem] text-ink">
-        Ilustrasi: PLTS dengan single-axis tracker mengikuti matahari
-      </figcaption>
+      <figcaption className="absolute right-0 bottom-0 font-mono text-gr-xs text-ink">{caption}</figcaption>
     </figure>
   );
 }
@@ -167,8 +165,8 @@ export function SolarTracker({ className = "" }: { className?: string }) {
 function StaticArray() {
   return (
     <svg viewBox="0 0 400 260" aria-hidden="true" className="absolute inset-0 h-full w-full">
-      <path d="M60 60 A160 140 0 0 1 340 60" fill="none" stroke="#17181a" strokeDasharray="6 6" />
-      <circle cx="200" cy="22" r="10" fill="#f26a2e" />
+      <path d="M60 60 A160 140 0 0 1 340 60" fill="none" stroke="#0e2846" strokeDasharray="6 6" />
+      <circle cx="200" cy="22" r="10" fill="#ffffff" />
       {[0, 1, 2, 3].map((i) => (
         <g key={i} transform={`translate(${70 + i * 75} ${120 + i * 22})`}>
           <path d="M0 40 L60 0 L95 18 L35 58 Z" fill="#23272c" />

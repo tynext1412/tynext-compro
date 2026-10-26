@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Band, revealDelay, type Tone } from "./band";
 
-const introTone: Partial<Record<Tone, string>> = { deep: "text-mist", "paper-2": "text-ink-2" };
+const introTone: Partial<Record<Tone, string>> = { navy: "text-mist", "paper-2": "text-ink-2" };
 
 export function PageHeader({
   title,
@@ -17,16 +17,16 @@ export function PageHeader({
   return (
     <Band tone={tone} lines={!aside}>
       <div
-        className={`mx-auto grid max-w-6xl gap-10 px-4 pt-16 pb-14 sm:px-6 sm:pt-24 lg:px-8 ${aside ? "lg:grid-cols-[1.15fr_1fr] lg:items-end" : ""}`}
+        className={`mx-auto grid max-w-6xl gap-gr-xl px-gr-md pt-[calc(var(--header-h)+var(--spacing-gr-xl))] pb-gr-2xl sm:px-gr-lg sm:pt-[calc(var(--header-h)+var(--spacing-gr-2xl))] lg:px-gr-xl ${aside ? "lg:grid-cols-[1.618fr_1fr] lg:items-end" : ""}`}
       >
         <div>
-          <h1 data-reveal className="display max-w-4xl text-[2.6rem] leading-[1.02] sm:text-6xl lg:text-7xl">
+          <h1 data-reveal className="display max-w-4xl text-gr-3xl leading-gr-tight sm:text-gr-4xl lg:text-gr-5xl">
             {title}
           </h1>
           <p
             data-reveal
             style={revealDelay(120)}
-            className={`mt-6 max-w-xl text-lg leading-relaxed ${introTone[tone] ?? ""}`}
+            className={`mt-gr-lg max-w-xl text-gr-lg leading-golden ${introTone[tone] ?? ""}`}
           >
             {intro}
           </p>

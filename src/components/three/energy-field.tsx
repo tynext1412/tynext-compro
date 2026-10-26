@@ -8,16 +8,17 @@ import { useEffect, useRef } from "react";
  * supaya warna arus selalu kontras dengan warna section yang sedang dilewati.
  */
 
-const TONES = ["paper", "paper-2", "deep", "night", "sun", "arc"] as const;
+const TONES = ["paper", "paper-2", "navy", "night", "lime", "teal"] as const;
 
 // Tiga warna fase untuk setiap warna section, urutan mengikuti TONES.
+// Tiga warna fase per warna section, urutan mengikuti TONES. Di latar gelap ketiganya mengikuti gradasi logo.
 const PALETTE: string[][] = [
-  ["#a63f14", "#0d3a33", "#c4931a"],
-  ["#a63f14", "#0d3a33", "#c4931a"],
-  ["#f5c037", "#f26a2e", "#8fd4bd"],
-  ["#f5c037", "#f26a2e", "#8fd4bd"],
-  ["#17181a", "#a63f14", "#0d3a33"],
-  ["#17181a", "#0d3a33", "#f2efe8"],
+  ["#17457a", "#2a8f73", "#5e8f22"],
+  ["#17457a", "#2a8f73", "#5e8f22"],
+  ["#5b9bd5", "#3eba95", "#8cc63f"],
+  ["#5b9bd5", "#3eba95", "#8cc63f"],
+  ["#0e1b2c", "#0e2846", "#17457a"],
+  ["#0e1b2c", "#0e2846", "#f4f6f8"],
 ];
 
 const MAX_BANDS = 8;
@@ -50,9 +51,9 @@ const fragmentShader = /* glsl */ `
     if (tone < 0) discard;
 
     float docY = y + uScroll;
-    float wide = step(768.0, uView.x);
-    float amp = uView.x * mix(0.30, 0.36, wide);
-    float k = 6.2831853 / mix(1300.0, 1700.0, wide);
+    // Golden ratio: amplitudo 0.382 (1/φ²) lebar layar, satu periode = φ x tinggi layar.
+    float amp = uView.x * 0.382;
+    float k = 6.2831853 / (uView.y * 1.618);
 
     vec4 acc = vec4(0.0);
     for (int p = 0; p < 3; p++) {
@@ -192,5 +193,7 @@ export function EnergyField() {
     };
   }, []);
 
-  return <div ref={container} aria-hidden="true" className="pointer-events-none fixed inset-0" style={{ zIndex: -1 }} />;
+  return (
+    <div ref={container} aria-hidden="true" className="pointer-events-none fixed inset-0" style={{ zIndex: -1 }} />
+  );
 }

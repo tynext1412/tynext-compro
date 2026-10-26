@@ -1,14 +1,14 @@
 import type { ComponentProps, CSSProperties } from "react";
 
-export type Tone = "paper" | "paper-2" | "deep" | "night" | "sun" | "arc";
+export type Tone = "paper" | "paper-2" | "navy" | "night" | "lime" | "teal";
 
 const text: Record<Tone, string> = {
   paper: "text-ink",
   "paper-2": "text-ink",
-  deep: "text-paper",
+  navy: "text-paper",
   night: "text-paper",
-  sun: "text-ink",
-  arc: "text-ink",
+  lime: "text-ink",
+  teal: "text-ink",
 };
 
 /**

@@ -7,8 +7,10 @@ node_modules
 .env*
 deploy.*.env
 deploy-*.sh
-Dockerfile
+Dockerfile*
 .dockerignore
 README.md
 DESIGN.md
 AGENTS.md
+.deploy
+out

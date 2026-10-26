@@ -1,11 +1,22 @@
-// Placeholder logo: nama perusahaan sebagai teks. Ganti dengan file logo resmi (public/logo.svg) bila sudah tersedia.
-export function Wordmark() {
+import Image from "next/image";
+// Logo lengkap: versi putih (aksen limau) untuk latar gelap, versi navy untuk latar terang.
+import logoNavy from "@/assets/brand/logo-navy.png";
+import logoWhite from "@/assets/brand/logo-white.png";
+
+export function Wordmark({
+  variant = "white",
+  className = "h-gr-xl",
+}: {
+  variant?: "white" | "navy";
+  className?: string;
+}) {
   return (
-    <span className="flex items-baseline gap-2 text-paper">
-      <span className="display text-xl">
-        TYNEXT
-      </span>
-      <span className="hidden font-mono text-[0.7rem] text-mist sm:inline">Energy &amp; Control</span>
-    </span>
+    <Image
+      src={variant === "white" ? logoWhite : logoNavy}
+      alt="TYNEXT Energy and Control"
+      loading="eager"
+      sizes="240px"
+      className={`w-auto ${className}`}
+    />
   );
 }

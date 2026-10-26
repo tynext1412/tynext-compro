@@ -1,42 +1,84 @@
 @import "tailwindcss";
 
-/* Palet dari dunia kelistrikan: patina tembaga (deep), matahari (sun), busur listrik (arc), kertas gambar teknik. Lihat DESIGN.md. */
+/* Palet brand TYNEXT dari logo. Lihat DESIGN.md. */
 @theme {
-  --color-paper: #f2efe8;
-  --color-paper-2: #e7e2d6;
-  --color-rule: #cfc8b8;
-  --color-ink: #17181a;
-  --color-ink-2: #55534d;
+  /* Warna diambil langsung dari logo TYNEXT. Primary: biru & navy, secondary: tosca, tertiary: hijau limau. */
+  --color-paper: #f4f6f8;
+  --color-paper-2: #e6ecf1;
+  --color-rule: #cfd8df;
+  --color-ink: #0e1b2c;
+  --color-ink-2: #4b5a6a;
 
-  --color-deep: #0d3a33;
-  --color-deep-2: #0a2e28;
-  --color-mint: #8fd4bd;
-  --color-mist: #a6b8b2;
-
-  --color-sun: #f5c037;
-  --color-arc: #f26a2e;
-  --color-arc-ink: #a63f14;
+  --color-navy: #0e2846;
+  --color-navy-2: #0a1f37;
+  --color-blue: #17457a;
+  --color-teal: #3eba95;
+  --color-lime: #8cc63f;
+  --color-aqua: #7fd8bd;
+  --color-mist: #a9bccb;
 
   --font-sans: var(--font-plex);
   --font-display: var(--font-archivo);
   --font-mono: var(--font-plex-mono);
 
   --radius-xs: 2px;
+
+  /*
+   * Golden ratio (φ = 1.618). Jarak: setiap langkah ×φ dari langkah sebelumnya, berpusat di 1rem.
+   * Tipografi: langkah √φ (1.272), sehingga setiap dua langkah tepat ×φ.
+   */
+  --spacing-gr-xs: 0.382rem;
+  --spacing-gr-sm: 0.618rem;
+  --spacing-gr-md: 1rem;
+  --spacing-gr-lg: 1.618rem;
+  --spacing-gr-xl: 2.618rem;
+  --spacing-gr-2xl: 4.236rem;
+  --spacing-gr-3xl: 6.854rem;
+
+  --text-gr-xs: 0.786rem;
+  --text-gr-xs--line-height: 1.618;
+  --text-gr-base: 1rem;
+  --text-gr-base--line-height: 1.618;
+  --text-gr-lg: 1.272rem;
+  --text-gr-lg--line-height: 1.618;
+  --text-gr-xl: 1.618rem;
+  --text-gr-xl--line-height: 1.272;
+  --text-gr-2xl: 2.058rem;
+  --text-gr-2xl--line-height: 1.18;
+  --text-gr-3xl: 2.618rem;
+  --text-gr-3xl--line-height: 1.09;
+  --text-gr-4xl: 3.33rem;
+  --text-gr-4xl--line-height: 1.03;
+  --text-gr-5xl: 4.236rem;
+  --text-gr-5xl--line-height: 1;
+
+  --leading-golden: 1.618;
+  --leading-gr-snug: 1.272;
+  --leading-gr-tight: 1;
 }
 
+/* Layar laptop pendek (tinggi <= 820px): hero memakai langkah φ satu tingkat lebih kecil agar muat satu layar. */
+@custom-variant short (@media (min-width: 64rem) and (max-height: 51.25rem));
+
 @layer base {
+  :root {
+    /* Tinggi header tetap (6rem) ditambah garis brand 2px; section pertama tiap halaman diberi ruang sebesar ini. */
+    --header-h: calc(6rem + 2px);
+  }
+
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 4.5rem;
+    scroll-padding-top: var(--header-h);
   }
 
   body {
     background: var(--color-paper);
     color: var(--color-ink);
+    line-height: 1.618;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-arc);
+    outline: 2px solid currentColor;
     outline-offset: 3px;
   }
 }
@@ -67,17 +109,17 @@
 [data-tone="paper-2"]::before {
   background: var(--color-paper-2);
 }
-[data-tone="deep"]::before {
-  background: var(--color-deep);
+[data-tone="navy"]::before {
+  background: var(--color-navy);
 }
 [data-tone="night"]::before {
-  background: var(--color-deep-2);
+  background: var(--color-navy-2);
 }
-[data-tone="sun"]::before {
-  background: var(--color-sun);
+[data-tone="lime"]::before {
+  background: var(--color-lime);
 }
-[data-tone="arc"]::before {
-  background: var(--color-arc);
+[data-tone="teal"]::before {
+  background: var(--color-teal);
 }
 
 /*
@@ -98,17 +140,17 @@
 [data-tone="paper-2"] {
   --halo: var(--color-paper-2);
 }
-[data-tone="deep"] {
-  --halo: var(--color-deep);
+[data-tone="navy"] {
+  --halo: var(--color-navy);
 }
 [data-tone="night"] {
-  --halo: var(--color-deep-2);
+  --halo: var(--color-navy-2);
 }
-[data-tone="sun"] {
-  --halo: var(--color-sun);
+[data-tone="lime"] {
+  --halo: var(--color-lime);
 }
-[data-tone="arc"] {
-  --halo: var(--color-arc);
+[data-tone="teal"] {
+  --halo: var(--color-teal);
 }
 [data-tone] :is([class^="bg-"], [class*=" bg-"]),
 [data-tone] :is([class^="bg-"], [class*=" bg-"]) * {
@@ -145,6 +187,41 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Gradasi ikon T di logo; dipakai hanya sebagai garis tipis di bawah header. */
+@utility brand-rule {
+  /* Pola berulang blue -> teal -> lime -> teal -> blue, jadi ujung dan pangkalnya menyambung mulus saat bergeser. */
+  background-image: linear-gradient(
+    90deg,
+    var(--color-blue),
+    var(--color-teal),
+    var(--color-lime),
+    var(--color-teal),
+    var(--color-blue)
+  );
+  background-size: 200% 100%;
+  background-repeat: repeat-x;
+  animation: brand-flow 6s linear infinite;
+}
+
+/*
+ * Warna mengalir dari kiri ke kanan: satu putaran menggeser pola selebar satu ulangan.
+ * Karena gambar (200%) lebih lebar dari garis, persentase yang turun berarti pola bergeser ke kanan.
+ */
+@keyframes brand-flow {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-rule {
+    animation: none;
   }
 }
 

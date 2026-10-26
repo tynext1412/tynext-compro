@@ -25,6 +25,40 @@ export function RevealObserver() {
   return null;
 }
 
+/*
+ * Next.js hanya menggulir ke atas saat pindah halaman bila bagian atas halaman baru tidak terlihat; bila pengunjung
+ * baru menggulir sedikit, halaman baru terbuka di tengah. Komponen ini selalu membawa ke paling atas setelah klik
+ * navigasi, kecuali tombol back/forward (posisi lama dipulihkan) dan tautan dengan hash (menuju section-nya).
+ */
+export function ScrollToTopOnNavigate() {
+  const pathname = usePathname();
+  const isFirstRender = useRef(true);
+  const isHistoryNavigation = useRef(false);
+
+  useEffect(() => {
+    const onPopState = () => {
+      isHistoryNavigation.current = true;
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (isHistoryNavigation.current) {
+      isHistoryNavigation.current = false;
+      return;
+    }
+    if (window.location.hash) return;
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname]);
+
+  return null;
+}
+
 // Angka yang menghitung naik saat terlihat, mis. "150+". Pembaca layar langsung mendapat nilai akhirnya.
 export function CountUp({ value }: { value: string }) {
   const match = value.match(/^(\d+)(.*)$/);

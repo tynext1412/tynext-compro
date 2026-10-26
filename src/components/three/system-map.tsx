@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import type { CurvePath, Group, MeshStandardMaterial, Vector3 } from "three";
-import { services, type ServiceSlug } from "@/content/company";
+import { serviceSlugs, type ServiceSlug } from "@/content/company";
+import { localePath, type Dictionary, type Locale } from "@/i18n";
 import { useThreeScene, type SceneSetup } from "./use-three-scene";
 
 /*
@@ -36,16 +37,19 @@ const COLORS = {
   mist: 0xa6b8b2,
   slate: 0x55534d,
   pv: 0x3d5a73,
-  sun: 0xf5c037,
-  arc: 0xf26a2e,
-  mint: 0x8fd4bd,
-  cable: 0x3f7c6f,
+  lime: 0x8cc63f,
+  teal: 0x3eba95,
+  aqua: 0x7fd8bd,
+  cable: 0x2f5f8c,
 };
 
 // Rentang putaran kamera (radian) saat mengikuti kursor.
 const TILT_THETA = 0.14;
 const TILT_PHI = 0.06;
 const FLOOR_OPACITY = 0.16;
+// Piringan lantai (x, z) dan jari-jarinya, mencakup seluruh diorama.
+const FLOOR_CENTER = [0.4, 0.4] as const;
+const FLOOR_RADIUS = 13;
 
 // Titik di atas tiap layanan tempat label HTML ditempelkan.
 const LABEL_ANCHOR: Record<ServiceSlug, [number, number, number]> = {
@@ -78,7 +82,7 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   const disposables: { dispose(): void }[] = [];
   const keep = <T extends { dispose(): void }>(d: T) => (disposables.push(d), d);
 
-  scene.add(new THREE.HemisphereLight(0xfff6dc, 0x0d3a33, 1.6));
+  scene.add(new THREE.HemisphereLight(0xf4f8ff, 0x0e2846, 1.6));
   const light = new THREE.DirectionalLight(0xfff2e0, 2.2);
   light.position.set(6, 12, 8);
   light.castShadow = true;
@@ -92,13 +96,16 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   ground.receiveShadow = true;
   scene.add(ground);
 
-  // Lantai grid seperti denah lokasi: selalu tampil samar, lebih tegas di mode Engineering.
-  // Garis memudar ke arah tepi sehingga tidak pernah terpotong oleh batas kanvas.
+  // Lantai grid berbentuk piringan bundar di bawah diorama, seperti alas maket: selalu tampil samar, lebih tegas
+  // di mode Engineering. Garis memudar melingkar ke arah tepi piringan, jadi tidak ada batas kotak yang terlihat.
   const floorMaterial = keep(
     new THREE.ShaderMaterial({
       transparent: true,
       depthWrite: false,
-      uniforms: { uOpacity: { value: FLOOR_OPACITY }, uColor: { value: new THREE.Color(COLORS.mint) } },
+      uniforms: {
+        uOpacity: { value: FLOOR_OPACITY },
+        uColor: { value: new THREE.Color(COLORS.aqua) },
+      },
       vertexShader: /* glsl */ `
         varying vec2 vPos;
         void main() {
@@ -114,7 +121,7 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
         void main() {
           vec2 cell = abs(fract(vPos - 0.5) - 0.5) / fwidth(vPos);
           float line = 1.0 - min(min(cell.x, cell.y), 1.0);
-          float r = length((vPos - vec2(0.5, 0.3)) / vec2(12.5, 5.2));
+          float r = length(vPos - vec2(${FLOOR_CENTER[0].toFixed(2)}, ${FLOOR_CENTER[1].toFixed(2)})) / ${FLOOR_RADIUS.toFixed(2)};
           float fade = 1.0 - smoothstep(0.45, 1.0, r);
           gl_FragColor = vec4(uColor, line * fade * uOpacity);
           #include <colorspace_fragment>
@@ -122,12 +129,12 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
       `,
     }),
   );
-  const floor = new THREE.Mesh(keep(new THREE.PlaneGeometry(30, 14)), floorMaterial);
+  const floor = new THREE.Mesh(keep(new THREE.CircleGeometry(FLOOR_RADIUS, 96)), floorMaterial);
   floor.rotation.x = -Math.PI / 2;
-  floor.position.set(0.5, 0.01, 0.3);
+  floor.position.set(FLOOR_CENTER[0], 0.01, FLOOR_CENTER[1]);
   scene.add(floor);
 
-  const edgesMaterial = keep(new THREE.LineBasicMaterial({ color: COLORS.mint, transparent: true, opacity: 0 }));
+  const edgesMaterial = keep(new THREE.LineBasicMaterial({ color: COLORS.aqua, transparent: true, opacity: 0 }));
   const assets: Asset[] = [];
 
   const makeAsset = (slug: ServiceSlug, beacon: [number, number, number]) => {
@@ -182,7 +189,7 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   for (let i = 0; i < 3; i++) {
     const z = 1.4 + i * 0.95;
     box(bess, [1.9, 0.85, 0.8], [-8.4, 0.43, z], COLORS.paper);
-    box(bess, [0.04, 0.55, 0.5], [-7.44, 0.4, z], COLORS.arc);
+    box(bess, [0.04, 0.55, 0.5], [-7.44, 0.4, z], COLORS.teal);
   }
 
   // Gardu: trafo dan rangka busbar
@@ -207,7 +214,7 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   box(control, [1.8, 1.0, 1.3], [-1.6, 0.5, 2.2], COLORS.paper);
   box(control, [2.0, 0.12, 1.5], [-1.6, 1.06, 2.2], COLORS.slate);
   cyl(control, 0.03, 0.04, 1.3, [-1.0, 1.75, 2.5], COLORS.steel);
-  box(control, [0.16, 0.16, 0.16], [-1.0, 2.45, 2.5], COLORS.sun);
+  box(control, [0.16, 0.16, 0.16], [-1.0, 2.45, 2.5], COLORS.lime);
   const antenna = new THREE.Vector3(-1.0, 2.45, 2.5);
 
   // Jaringan distribusi 20 kV
@@ -238,8 +245,8 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   box(facility, [2.6, 1.4, 2.4], [10, 0.7, 0], COLORS.paper2);
   for (let k = 0; k < 3; k++) box(facility, [0.86, 0.1, 2.4], [9.13 + k * 0.87, 1.6, 0], COLORS.slate, [0, 0, 0.45]);
   cyl(facility, 0.15, 0.18, 1.6, [10.9, 1.6, -0.8], COLORS.mist);
-  const windows = box(facility, [0.04, 0.25, 1.8], [8.68, 0.85, 0], COLORS.sun);
-  (windows.material as MeshStandardMaterial).emissive.setHex(COLORS.sun);
+  const windows = box(facility, [0.04, 0.25, 1.8], [8.68, 0.85, 0], COLORS.lime);
+  (windows.material as MeshStandardMaterial).emissive.setHex(COLORS.lime);
 
   // Jalur arus: PLTS & BESS -> trafo -> busbar -> tiang 20 kV -> fasilitas klien
   const poly = (points: [number, number, number][]) => {
@@ -294,7 +301,7 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   particleGeometry.setAttribute("position", new THREE.BufferAttribute(particlePositions, 3));
   const particleMaterial = keep(
     new THREE.PointsMaterial({
-      color: COLORS.sun,
+      color: COLORS.lime,
       size: 6,
       sizeAttenuation: false,
       transparent: true,
@@ -309,7 +316,7 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   // Integration: paket data telemetri dari tiap aset ke ruang kontrol.
   const links = assets.filter((a) => a !== control).map((a) => a.beacon.clone());
   const linkMaterial = keep(
-    new THREE.LineDashedMaterial({ color: COLORS.mint, dashSize: 0.18, gapSize: 0.14, transparent: true, opacity: 0 }),
+    new THREE.LineDashedMaterial({ color: COLORS.aqua, dashSize: 0.18, gapSize: 0.14, transparent: true, opacity: 0 }),
   );
   for (const from of links) {
     const line = new THREE.Line(keep(new THREE.BufferGeometry().setFromPoints([from, antenna])), linkMaterial);
@@ -322,7 +329,7 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   packetGeometry.setAttribute("position", new THREE.BufferAttribute(packetPositions, 3));
   const packetMaterial = keep(
     new THREE.PointsMaterial({
-      color: COLORS.mint,
+      color: COLORS.aqua,
       size: 7,
       sizeAttenuation: false,
       transparent: true,
@@ -337,7 +344,7 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   // Maintenance: sapuan inspeksi dan indikator status di atas tiap aset.
   const beaconGeometry = keep(new THREE.OctahedronGeometry(0.22));
   const beacons = assets.map((a) => {
-    const material = keep(new THREE.MeshBasicMaterial({ color: COLORS.arc, transparent: true, opacity: 0 }));
+    const material = keep(new THREE.MeshBasicMaterial({ color: COLORS.teal, transparent: true, opacity: 0 }));
     const mesh = new THREE.Mesh(beaconGeometry, material);
     mesh.position.copy(a.beacon);
     scene.add(mesh);
@@ -345,7 +352,7 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   });
   const sweepMaterial = keep(
     new THREE.MeshBasicMaterial({
-      color: COLORS.arc,
+      color: COLORS.teal,
       transparent: true,
       opacity: 0,
       depthWrite: false,
@@ -410,6 +417,16 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   // Bingkai kamera dihitung dari batas tiap objek diorama yang diproyeksikan, supaya peta selalu mengisi
   // kanvas berapa pun rasio lebar-tingginya. Ruang ekstra di atas untuk label layanan.
   const corners: Vector3[] = [];
+  for (let i = 0; i < 48; i++) {
+    const a = (i / 48) * Math.PI * 2;
+    corners.push(
+      new THREE.Vector3(
+        FLOOR_CENTER[0] + Math.cos(a) * FLOOR_RADIUS * 0.9,
+        0,
+        FLOOR_CENTER[1] + Math.sin(a) * FLOOR_RADIUS * 0.9,
+      ),
+    );
+  }
   const meshBox = new THREE.Box3();
   for (const asset of assets) {
     for (const child of asset.group.children) {
@@ -460,7 +477,7 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   };
   fit(width, height);
 
-  const highlight = new THREE.Color(COLORS.sun);
+  const highlight = new THREE.Color(COLORS.lime);
   const projected = new THREE.Vector3();
   let lastTime = 0;
   let previous = -1;
@@ -535,7 +552,7 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
     for (const b of beacons) {
       const near = Math.abs(b.mesh.position.x - sweepX) < 0.8;
       b.material.opacity = ease(b.material.opacity, inspecting);
-      b.material.color.setHex(near ? COLORS.sun : COLORS.arc);
+      b.material.color.setHex(near ? COLORS.lime : COLORS.teal);
       b.mesh.position.y = b.base + Math.sin(time * 2 + b.mesh.position.x) * 0.08;
       b.mesh.rotation.y = time;
       b.mesh.scale.setScalar(near ? 1.5 : 1);
@@ -576,10 +593,13 @@ const setup: SceneSetup = ({ THREE, renderer, width, height }) => {
   };
 };
 
-const ORDER: (ServiceSlug | null)[] = [null, ...services.map((s) => s.slug)];
+const ORDER: (ServiceSlug | null)[] = [null, ...serviceSlugs];
 const TOUR_MS = 4200;
 
 type MapState = {
+  lang: Locale;
+  services: Dictionary["services"];
+  labels: Dictionary["map"];
   active: ServiceSlug | null;
   focus: (slug: ServiceSlug) => void;
   release: () => void;
@@ -594,7 +614,17 @@ function useMapState() {
 }
 
 // Menyimpan layanan yang sedang disorot, dibagi antara kanvas 3D dan daftar layanan di hero.
-export function SystemMapProvider({ children }: { children: ReactNode }) {
+export function SystemMapProvider({
+  lang,
+  services,
+  labels,
+  children,
+}: {
+  lang: Locale;
+  services: Dictionary["services"];
+  labels: Dictionary["map"];
+  children: ReactNode;
+}) {
   const router = useRouter();
   const [active, setActive] = useState<ServiceSlug | null>(null);
   const [paused, setPaused] = useState(false);
@@ -624,10 +654,13 @@ export function SystemMapProvider({ children }: { children: ReactNode }) {
         setActive(null);
       }
     };
-    bridge.select = (slug) => router.push(`/layanan#${slug}`);
-  }, [router]);
+    bridge.select = (slug) => router.push(localePath(lang, `/layanan#${slug}`));
+  }, [router, lang]);
 
   const value: MapState = {
+    lang,
+    services,
+    labels,
     active,
     focus: (slug) => {
       setPaused(true);
@@ -646,8 +679,8 @@ export function SystemMapProvider({ children }: { children: ReactNode }) {
 export function SystemMapCanvas({ className = "" }: { className?: string }) {
   const container = useRef<HTMLDivElement>(null);
   const status = useThreeScene(container, setup, 2);
-  const { active } = useMapState();
-  const activeService = services.find((s) => s.slug === active);
+  const { active, services, labels } = useMapState();
+  const activeService = active ? services[active] : undefined;
 
   return (
     <div className={`relative ${className}`}>
@@ -657,21 +690,21 @@ export function SystemMapCanvas({ className = "" }: { className?: string }) {
           bridge.label = el;
         }}
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-0 max-w-60 rounded-xs bg-paper px-3 py-2 text-ink opacity-0 shadow-lg transition-opacity duration-300"
+        className="pointer-events-none absolute top-0 left-0 max-w-60 rounded-xs bg-paper px-gr-sm py-gr-sm text-ink opacity-0 shadow-lg transition-opacity duration-300"
       >
         {activeService && (
           <>
-            <span className="block font-mono text-[0.65rem] text-arc-ink">{activeService.code}</span>
-            <span className="block text-sm font-semibold">{activeService.title}</span>
+            <span className="block font-mono text-gr-xs text-blue">{activeService.code}</span>
+            <span className="block text-gr-base font-semibold">{activeService.title}</span>
           </>
         )}
       </div>
       {status === "loading" && (
-        <p className="absolute inset-0 grid place-items-center font-mono text-xs text-mist">Memuat peta sistem…</p>
+        <p className="absolute inset-0 grid place-items-center font-mono text-gr-xs text-mist">{labels.loading}</p>
       )}
       {status === "failed" && (
-        <p className="absolute inset-0 grid place-items-center px-6 text-center text-sm text-mist">
-          Peta 3D tidak dapat ditampilkan di perangkat ini. Gunakan daftar layanan untuk melihat detailnya.
+        <p className="absolute inset-0 grid place-items-center px-gr-lg text-center text-gr-base text-mist">
+          {labels.failed}
         </p>
       )}
     </div>
@@ -680,33 +713,34 @@ export function SystemMapCanvas({ className = "" }: { className?: string }) {
 
 // Daftar layanan berjajar mendatar di bawah hero; menyorot layanan di peta saat diarahkan atau difokus.
 export function SystemMapLegend() {
-  const { active, focus, release } = useMapState();
+  const { lang, services, labels, active, focus, release } = useMapState();
 
   return (
     <nav aria-labelledby="peta-layanan">
-      <h2 id="peta-layanan" className="font-mono text-xs font-medium text-sun">
-        Peta layanan
+      <h2 id="peta-layanan" className="font-mono text-gr-xs font-medium text-lime">
+        {labels.heading}
       </h2>
-      <ol className="mt-3 grid grid-cols-2 border-t border-white/15 lg:grid-cols-4">
-        {services.map((service, i) => {
-          const isActive = active === service.slug;
+      <ol className="mt-gr-sm grid grid-cols-2 border-t border-white/15 lg:grid-cols-4">
+        {serviceSlugs.map((slug, i) => {
+          const service = services[slug];
+          const isActive = active === slug;
           return (
-            <li key={service.slug} className="border-b border-white/15 lg:border-b-0 lg:border-r lg:last:border-r-0">
+            <li key={slug} className="border-b border-white/15 lg:border-b-0 lg:border-r lg:last:border-r-0">
               <Link
-                href={`/layanan#${service.slug}`}
-                onMouseEnter={() => focus(service.slug)}
-                onFocus={() => focus(service.slug)}
+                href={localePath(lang, `/layanan#${slug}`)}
+                onMouseEnter={() => focus(slug)}
+                onFocus={() => focus(slug)}
                 onMouseLeave={release}
                 onBlur={release}
-                className={`flex h-full gap-3 px-3 py-3 transition-colors ${isActive ? "bg-white/10" : "hover:bg-white/5"}`}
+                className={`flex h-full gap-gr-sm px-gr-sm py-gr-sm transition-colors ${isActive ? "bg-white/10" : "hover:bg-white/5"}`}
               >
-                <span className={`display text-base ${isActive ? "text-sun" : "text-mist"}`}>
+                <span className={`display text-gr-base ${isActive ? "text-lime" : "text-mist"}`}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span>
-                  <span className="block text-sm font-semibold">{service.title}</span>
+                  <span className="block text-gr-base font-semibold">{service.title}</span>
                   <span
-                    className={`mt-1 hidden text-xs leading-snug sm:block ${isActive ? "text-paper" : "text-mist"}`}
+                    className={`mt-gr-xs hidden text-gr-xs leading-gr-snug sm:block short:hidden ${isActive ? "text-paper" : "text-mist"}`}
                   >
                     {service.role}
                   </span>

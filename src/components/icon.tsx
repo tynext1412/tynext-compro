@@ -2,9 +2,7 @@ import type { ReactNode } from "react";
 
 // Ikon digambar sendiri dengan ujung garis persegi, mengikuti gaya gambar teknik.
 const paths = {
-  "shield-check": (
-    <path d="M12 2.5l8 3v6.3c0 4.6-3.4 8.5-8 9.7-4.6-1.2-8-5.1-8-9.7V5.5zM8.5 12l2.5 2.5 4.5-5" />
-  ),
+  "shield-check": <path d="M12 2.5l8 3v6.3c0 4.6-3.4 8.5-8 9.7-4.6-1.2-8-5.1-8-9.7V5.5zM8.5 12l2.5 2.5 4.5-5" />,
   "map-pin": (
     <>
       <path d="M12 21.5s-7-6.2-7-11.7a7 7 0 0 1 14 0c0 5.5-7 11.7-7 11.7z" />

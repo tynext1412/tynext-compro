@@ -1,0 +1,13 @@
+# Dipakai di server oleh deploy-compro-manual.sh: membungkus folder app hasil build (server.js + aset)
+# menjadi image. Tidak ada npm install di sini, jadi build di server hanya beberapa detik.
+FROM node:22-alpine
+WORKDIR /app
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1 \
+    PORT=3000 \
+    HOSTNAME=0.0.0.0
+RUN addgroup -S -g 1001 nodejs && adduser -S -u 1001 -G nodejs nextjs
+COPY --chown=nextjs:nodejs . .
+USER nextjs
+EXPOSE 3000
+CMD ["node", "server.js"]
