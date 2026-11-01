@@ -9,6 +9,7 @@ npm install
 npm run dev      # http://localhost:3000
 npm run build    # build produksi (server standalone di .next/standalone)
 npm run start
+npm run ipc:import  # setelah mengganti public/docs/beckhoff-productfinder.xlsx: perbarui tabel Solusi IPC
 ```
 
 ## Deploy manual ke server
@@ -34,7 +35,7 @@ Langkah:
 
    ```nginx
    server {
-       server_name www.tynext.com tynext.com;
+       server_name tynext.co.id www.tynext.co.id;
        location / {
            proxy_pass http://127.0.0.1:3010;
            proxy_set_header Host $host;
@@ -60,7 +61,8 @@ Teks ada di `src/content/dictionaries/id.ts` dan `en.ts`. Bentuk kamus Inggris d
 | `/{id,en}/tentang` | Profil, visi & misi, keunggulan, nilai perusahaan |
 | `/{id,en}/layanan` | Empat lini layanan (anchor `#engineering`, `#integration`, `#renewable`, `#maintenance`) dan dua pilar solusi. Header berisi simulasi PLTS single-axis tracker (Three.js) |
 | `/{id,en}/proyek` | Portofolio proyek dan status |
-| `/{id,en}/sertifikasi` | ISO 9001, ISO 45001, BUJK, Zero Harm Policy |
+| `/{id,en}/ipc` | Solusi IPC: product finder Embedded PC (cari, urutkan, sembunyikan kolom, bandingkan, unduh Excel). Data dari `public/docs/beckhoff-productfinder.xlsx`, lihat di bawah |
+| `/{id,en}/platform` | Cloud Platform: TYNEXT Solar (monitoring PLTS & BESS multi-lokasi). Isi `company.platformUrl` untuk menampilkan tombol buka platform |
 | `/{id,en}/kontak` | Kontak dan formulir yang menyusun email (membuka aplikasi email pengunjung, belum ada backend) |
 
 ## Struktur

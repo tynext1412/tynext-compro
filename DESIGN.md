@@ -29,11 +29,11 @@ Dipakai konsisten di beranda, halaman Layanan, dan Proyek.
 | --- | --- |
 | Engineering & Design | paper-2 |
 | System Integration | navy (chip aqua) |
-| Renewable Energy EPC | lime |
+| Energy Solutions & Infrastructure | lime |
 | Operation & Maintenance | teal |
 
 ## Header
-Tinggi 6rem (96px), tetap di atas (fixed), logo 48px. Di posisi paling atas latarnya transparan dan warna teks/logo mengikuti section pertama halaman (putih di navy, navy di limau/tosca); setelah di-scroll menjadi navy 90% dengan blur. Tombol bahasa bersegmen ID | EN di sebelah tombol Hubungi Kami. Menu: garis bawah tumbuh dari kiri saat hover. Di bawah header ada garis gradasi logo yang mengalir pelan dari kiri ke kanan.
+Tinggi 6rem (96px), tetap di atas (fixed), logo 48px. Menu lengkap tampil mulai lebar 1280px (lima menu tidak muat satu baris di bawahnya); lebih sempit dari itu memakai tombol menu. Di posisi paling atas latarnya transparan dan warna teks/logo mengikuti section pertama halaman (putih di navy, navy di limau/tosca); setelah di-scroll menjadi navy 90% dengan blur. Tombol bahasa bersegmen ID | EN di sebelah tombol Hubungi Kami. Menu: garis bawah tumbuh dari kiri saat hover. Di bawah header ada garis gradasi logo yang mengalir pelan dari kiri ke kanan.
 
 ## Logo
 - `src/assets/brand/logo-white.png`: logo lengkap putih, di header (latar gelap) dan footer.

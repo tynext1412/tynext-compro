@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Band, revealDelay } from "@/components/band";
-import { CountUp } from "@/components/motion";
 import { PageHeader } from "@/components/page-header";
 import { CtaBand, SectionTitle } from "@/components/ui";
-import { stats } from "@/content/company";
 import { alternatesFor, getDictionary, hasLocale } from "@/i18n";
 // Foto sementara, di-crop dari slide deck (resolusi rendah). Ganti dengan foto asli resolusi tinggi.
 import facilityPhoto from "@/assets/bess-facility.jpg";
@@ -50,21 +48,6 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/tentang">
             <p data-reveal className="text-gr-lg leading-golden text-ink-2">
               {about.body}
             </p>
-            <dl className="mt-gr-xl grid grid-cols-3 gap-gr-sm">
-              {stats.map((value, i) => (
-                <div
-                  key={value}
-                  data-reveal
-                  style={revealDelay(i * 120)}
-                  className="flex flex-col-reverse justify-end rounded-xs bg-teal p-gr-md sm:p-gr-md"
-                >
-                  <dt className="mt-gr-xs text-gr-base font-semibold">{about.stats[i]}</dt>
-                  <dd className="display text-gr-2xl sm:text-gr-4xl">
-                    <CountUp value={value} />
-                  </dd>
-                </div>
-              ))}
-            </dl>
           </div>
         </div>
       </Band>

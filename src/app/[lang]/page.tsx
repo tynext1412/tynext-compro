@@ -207,9 +207,6 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <p className="mt-gr-lg leading-golden text-ink-2">
               <strong className="font-semibold text-ink">{dict.safety.title}.</strong> {dict.safety.body}
             </p>
-            <Link href={href("/sertifikasi")} className={`${textLink} mt-gr-lg inline-block`}>
-              {home.complianceLink}
-            </Link>
           </div>
           <dl className="border-t-2 border-ink">
             {certificationCodes.map((code, i) => (

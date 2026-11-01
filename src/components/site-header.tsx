@@ -13,8 +13,9 @@ const firstBandTone: Record<RouteKey, "dark" | "light"> = {
   home: "dark",
   about: "dark",
   services: "light",
+  ipc: "dark",
   projects: "light",
-  certifications: "dark",
+  platform: "dark",
   contact: "light",
 };
 
@@ -67,7 +68,7 @@ export function SiteHeader({ lang, nav }: { lang: Locale; nav: Dictionary["nav"]
           <Wordmark variant={light ? "navy" : "white"} className="h-10 sm:h-12" />
         </Link>
 
-        <nav aria-label={nav.mainNav} className="hidden md:block">
+        <nav aria-label={nav.mainNav} className="hidden xl:block">
           <ul className="flex items-center gap-gr-sm">
             {navRoutes.map((route) => (
               <li key={route.key}>
@@ -75,7 +76,7 @@ export function SiteHeader({ lang, nav }: { lang: Locale; nav: Dictionary["nav"]
                   href={localePath(lang, route.href)}
                   aria-current={isActive(route.href) ? "page" : undefined}
                   // Garis bawah tumbuh dari kiri saat hover/fokus; tetap penuh di halaman yang sedang dibuka.
-                  className={`relative px-gr-sm py-gr-sm text-gr-base font-medium transition-colors after:absolute after:inset-x-gr-sm after:bottom-gr-xs after:h-0.5 after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100 focus-visible:after:scale-x-100 motion-reduce:after:transition-none aria-[current=page]:after:scale-x-100 ${
+                  className={`relative px-gr-sm py-gr-sm text-gr-base font-medium whitespace-nowrap transition-colors after:absolute after:inset-x-gr-sm after:bottom-gr-xs after:h-0.5 after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100 focus-visible:after:scale-x-100 motion-reduce:after:transition-none aria-[current=page]:after:scale-x-100 ${
                     light
                       ? "text-ink after:bg-navy"
                       : "text-mist after:bg-lime hover:text-paper aria-[current=page]:text-paper"
@@ -93,7 +94,7 @@ export function SiteHeader({ lang, nav }: { lang: Locale; nav: Dictionary["nav"]
           <Link
             href={localePath(lang, "/kontak")}
             aria-current={isActive("/kontak") ? "page" : undefined}
-            className={`hidden min-h-11 items-center rounded-md px-gr-md text-gr-base font-semibold transition-colors md:inline-flex ${
+            className={`hidden min-h-11 items-center rounded-md px-gr-md text-gr-base font-semibold transition-colors whitespace-nowrap xl:inline-flex ${
               light ? "bg-navy text-paper hover:bg-ink" : "bg-lime text-ink hover:bg-paper"
             }`}
           >
@@ -101,7 +102,7 @@ export function SiteHeader({ lang, nav }: { lang: Locale; nav: Dictionary["nav"]
           </Link>
           <button
             type="button"
-            className="-mr-gr-sm grid size-11 place-items-center rounded-xs md:hidden"
+            className="-mr-gr-sm grid size-11 place-items-center rounded-xs xl:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? nav.closeMenu : nav.openMenu}
@@ -112,7 +113,7 @@ export function SiteHeader({ lang, nav }: { lang: Locale; nav: Dictionary["nav"]
         </div>
       </div>
 
-      <nav id="mobile-nav" aria-label={nav.mainNav} hidden={!open} className="border-t border-white/10 md:hidden">
+      <nav id="mobile-nav" aria-label={nav.mainNav} hidden={!open} className="border-t border-white/10 xl:hidden">
         <ul className="px-gr-md py-gr-sm sm:px-gr-lg">
           {routes.map((route) => (
             <li key={route.key}>

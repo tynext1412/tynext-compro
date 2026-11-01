@@ -14,8 +14,9 @@ export const id = {
       home: "Beranda",
       about: "Tentang",
       services: "Layanan",
+      ipc: "Solusi IPC",
       projects: "Proyek",
-      certifications: "K3 & Mutu",
+      platform: "Cloud Platform",
       contact: "Kontak",
     } satisfies Record<RouteKey, string>,
     cta: "Hubungi Kami",
@@ -96,14 +97,9 @@ export const id = {
     },
     renewable: {
       code: "03 / Renewables",
-      title: "Renewable Energy EPC",
-      body: "Konstruksi PLTS Atap (Rooftop PV), PLTS Terapung, Hybrid Microgrid, dan penyediaan BESS (Energy Storage).",
-      scope: [
-        "PLTS Atap (Rooftop PV)",
-        "PLTS Terapung (Floating PV)",
-        "Hybrid Microgrid",
-        "Battery Energy Storage System (BESS)",
-      ],
+      title: "Energy Solutions & Infrastructure",
+      body: "Pengembangan dan penyediaan sistem energi terbarukan, BESS, hybrid microgrid, infrastruktur pengisian kendaraan listrik (EV charging), serta solusi infrastruktur energi.",
+      scope: ["EV Charging", "Hybrid & BESS"],
       role: "PLTS menghasilkan energi, BESS menyimpannya untuk dipakai kapan saja.",
     },
     maintenance: {
@@ -142,16 +138,16 @@ export const id = {
 
   advantages: [
     {
-      title: "Tenaga Ahli Bersertifikat",
-      body: "Tim insinyur berpengalaman internasional dengan kualifikasi teknis tingkat tinggi di bidang kelistrikan dan otomasi.",
+      title: "Tim Ahli",
+      body: "Tim insinyur berpengalaman dengan kualifikasi teknis tingkat tinggi di bidang kelistrikan dan otomasi.",
     },
     {
       title: "End-to-End Solution",
-      body: "Menangani seluruh siklus proyek mulai dari konsultasi awal, desain rekayasa, pengadaan, konstruksi hingga pemeliharaan.",
+      body: "Menangani seluruh siklus proyek mulai dari konsultasi awal, desain rekayasa, pengadaan, integrasi hingga pemeliharaan.",
     },
     {
-      title: "Rekam Jejak Teruji",
-      body: "Terbukti sukses mengeksekusi proyek strategis bersama PLN, BUMN, dan grup industri manufaktur terkemuka.",
+      title: "Solusi Berbasis IPC",
+      body: "Sistem kontrol dan monitoring berbasis Industrial PC (IPC) yang menjalankan SCADA, HMI, dan akuisisi data secara andal di lingkungan industri.",
     },
   ],
 
@@ -212,7 +208,6 @@ export const id = {
     allProjects: "Semua proyek",
     complianceEyebrow: "Kepatuhan & Mutu",
     complianceTitle: "Sertifikasi & Standar Keselamatan",
-    complianceLink: "Detail sertifikasi & K3",
     status: "Status",
   },
 
@@ -231,7 +226,7 @@ export const id = {
   servicesPage: {
     metaTitle: "Layanan",
     metaDescription:
-      "Engineering & design, system integration, renewable energy EPC, serta operation & maintenance untuk sistem kelistrikan dan otomasi.",
+      "Engineering & design, system integration, energy solutions & infrastructure, serta operation & maintenance untuk sistem kelistrikan dan otomasi.",
     title: "Layanan & Spesialisasi Teknik",
     intro:
       "Dari studi kelayakan hingga pemeliharaan aset, satu tim menangani rekayasa kelistrikan, sistem kontrol, dan energi terbarukan.",
@@ -251,19 +246,94 @@ export const id = {
     serviceLine: "Lini layanan",
   },
 
-  certificationsPage: {
-    metaTitle: "K3 & Mutu",
-    metaDescription: "Sertifikasi ISO 9001:2015, ISO 45001:2018, BUJK, dan kebijakan Zero Harm TYNEXT.",
-    title: "Sertifikasi & Standar Keselamatan",
-    intro: "Sistem manajemen mutu, keselamatan kerja, dan perizinan yang menjadi dasar setiap pekerjaan lapangan kami.",
-    sectionLabel: "Kepatuhan & Mutu",
+  ipcPage: {
+    metaTitle: "Solusi IPC",
+    metaDescription:
+      "Katalog Embedded PC (IPC) untuk sistem kontrol dan otomasi: cari, urutkan, dan bandingkan CPU, sistem operasi, level TwinCAT, dan protokol komunikasi.",
+    title: "Solusi IPC",
+    intro:
+      "Pilihan Embedded PC untuk sistem kontrol, otomasi, dan monitoring. Cari, urutkan, dan bandingkan spesifikasinya, lalu diskusikan kebutuhan proyek Anda dengan tim kami.",
+    finderTitle: "Product finder IPC",
+    searchLabel: "Cari produk",
+    searchPlaceholder: "Cari produk, CPU, protokol...",
+    columnsButton: "Tampilkan/sembunyikan kolom",
+    showAllColumns: "Tampilkan semua kolom",
+    compare: "Bandingkan",
+    clearSelection: "Hapus pilihan",
+    compareColumn: "Bandingkan",
+    selectRow: "Pilih untuk dibandingkan",
+    download: "Unduh Excel",
+    downloadPdf: "Unduh Katalog PDF",
+    // {shown} dan {total} diganti angka.
+    count: "{shown} dari {total} produk",
+    empty: "Tidak ada produk yang cocok. Coba kata kunci lain atau tampilkan semua produk.",
+    showAll: "Tampilkan semua produk",
+    source: "Sumber data: katalog produk Beckhoff Automation.",
+    columns: {
+      product: "Produk",
+      productCategory: "Kategori produk",
+      numberOfCores: "Jumlah core",
+      cpuType: "Tipe CPU",
+      twincat3PlatformLevel: "Level platform TwinCAT 3",
+      twincat2Support: "Dukungan TwinCAT 2",
+      operatingSystem: "Sistem operasi",
+      protectionRating: "Rating proteksi",
+      fan: "Kipas",
+      productStatus: "Status produk",
+      useInHazardousAreas: "Untuk area berbahaya",
+      interfaces: "Antarmuka",
+      ups: "UPS",
+      tpm: "TPM",
+      moduleType: "Tipe modul",
+      communication: "Komunikasi",
+      masterSlaveFunctionality: "Fungsi master/slave",
+      memoryMedium: "Media penyimpanan",
+    },
+    // Terjemahan nilai sel dari Excel (bahasa Inggris). Nilai yang tidak ada di sini tampil apa adanya.
+    values: {
+      yes: "ya",
+      no: "tidak",
+      "regular delivery": "tersedia",
+      "regular delivery (not recommended for new projects)": "tersedia (tidak disarankan untuk proyek baru)",
+      "product announcement": "segera hadir",
+      "1-second UPS": "UPS 1 detik",
+      "1-second UPS, integrated": "UPS 1 detik, terintegrasi",
+      "Basic CPU module": "Modul CPU dasar",
+    },
+  },
+
+  platformPage: {
+    metaTitle: "Cloud Platform",
+    metaDescription:
+      "TYNEXT Solar: platform monitoring cloud untuk memantau dan mengelola banyak lokasi PLTS dan BESS dari satu dashboard.",
+    title: "TYNEXT Solar",
+    intro:
+      "Platform monitoring cloud dari TYNEXT yang menyatukan seluruh aset energi Anda dalam satu dashboard yang jelas, cepat, dan mudah diakses.",
+    featuresLabel: "Fitur Utama",
+    features: [
+      {
+        title: "Kontrol Banyak Lokasi",
+        body: "Pantau dan kelola banyak lokasi PLTS dan BESS dari satu dashboard terpusat.",
+      },
+      {
+        title: "Peta Interaktif & Data Real-Time",
+        body: "Peta interaktif dan data real-time untuk merespons kondisi aset dengan cepat.",
+      },
+      {
+        title: "Laporan Mudah",
+        body: "Laporan performa dan produksi energi yang siap dibagikan kepada pemangku kepentingan.",
+      },
+    ],
+    screenshotAlt:
+      "Dashboard TYNEXT Solar: peta lokasi PLTS dan BESS di Indonesia dengan ringkasan kapasitas terpasang, produksi energi, manfaat lingkungan, dan performa BESS.",
+    open: "Buka TYNEXT Solar",
   },
 
   contactPage: {
     metaTitle: "Kontak",
     office: "Kantor Pusat",
     email: "Email Inquiry",
-    phone: "Telepon",
+    whatsapp: "WhatsApp",
     formTitle: "Ceritakan kebutuhan proyek Anda",
   },
 

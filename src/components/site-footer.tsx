@@ -35,8 +35,8 @@ export function SiteFooter({ lang, nav }: { lang: Locale; nav: Dictionary["nav"]
             </a>
           </p>
           <p>
-            <a href={company.phoneHref} className="hover:text-lime">
-              {company.phone}
+            <a href={company.whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-lime">
+              WhatsApp {company.whatsapp}
             </a>
           </p>
         </address>

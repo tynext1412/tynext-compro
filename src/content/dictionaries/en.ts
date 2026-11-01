@@ -14,8 +14,9 @@ export const en: Dictionary = {
       home: "Home",
       about: "About",
       services: "Services",
+      ipc: "IPC Solution",
       projects: "Projects",
-      certifications: "HSE & Quality",
+      platform: "Cloud Platform",
       contact: "Contact",
     },
     cta: "Contact Us",
@@ -101,9 +102,9 @@ export const en: Dictionary = {
     },
     renewable: {
       code: "03 / Renewables",
-      title: "Renewable Energy EPC",
-      body: "Construction of rooftop PV, floating PV, and hybrid microgrids, plus supply of BESS (energy storage).",
-      scope: ["Rooftop PV", "Floating PV", "Hybrid microgrid", "Battery Energy Storage System (BESS)"],
+      title: "Energy Solutions & Infrastructure",
+      body: "Development and supply of renewable energy systems, BESS, hybrid microgrids, EV charging infrastructure, and energy infrastructure solutions.",
+      scope: ["EV Charging", "Hybrid & BESS"],
       role: "Solar PV generates the energy; BESS stores it for use at any time.",
     },
     maintenance: {
@@ -147,16 +148,16 @@ export const en: Dictionary = {
 
   advantages: [
     {
-      title: "Certified Experts",
-      body: "Internationally experienced engineers with high-level technical qualifications in electrical and automation fields.",
+      title: "Expert Team",
+      body: "Experienced engineers with high-level technical qualifications in electrical and automation fields.",
     },
     {
       title: "End-to-End Solution",
-      body: "We handle the entire project lifecycle, from initial consultation, engineering design, and procurement to construction and maintenance.",
+      body: "We handle the entire project lifecycle, from initial consultation, engineering design, and procurement to integration and maintenance.",
     },
     {
-      title: "Proven Track Record",
-      body: "A record of strategic projects delivered with PLN, state-owned enterprises (BUMN), and leading manufacturing groups.",
+      title: "IPC-Based Solution",
+      body: "Control and monitoring systems built on Industrial PCs (IPC), running SCADA, HMI, and data acquisition reliably in industrial environments.",
     },
   ],
 
@@ -217,7 +218,6 @@ export const en: Dictionary = {
     allProjects: "All projects",
     complianceEyebrow: "Compliance & Quality",
     complianceTitle: "Certifications & Safety Standards",
-    complianceLink: "Certification & HSE details",
     status: "Status",
   },
 
@@ -236,7 +236,7 @@ export const en: Dictionary = {
   servicesPage: {
     metaTitle: "Services",
     metaDescription:
-      "Engineering & design, system integration, renewable energy EPC, and operation & maintenance for electrical and automation systems.",
+      "Engineering & design, system integration, energy solutions & infrastructure, and operation & maintenance for electrical and automation systems.",
     title: "Services & Engineering Specialisations",
     intro:
       "From feasibility studies to asset maintenance, one team covers electrical engineering, control systems, and renewable energy.",
@@ -256,19 +256,94 @@ export const en: Dictionary = {
     serviceLine: "Service line",
   },
 
-  certificationsPage: {
-    metaTitle: "HSE & Quality",
-    metaDescription: "ISO 9001:2015, ISO 45001:2018, and BUJK certifications, and the TYNEXT Zero Harm policy.",
-    title: "Certifications & Safety Standards",
-    intro: "The quality management, occupational safety, and licensing systems behind every piece of our field work.",
-    sectionLabel: "Compliance & Quality",
+  ipcPage: {
+    metaTitle: "IPC Solution",
+    metaDescription:
+      "Embedded PC (IPC) catalogue for control and automation systems: search, sort, and compare CPUs, operating systems, TwinCAT levels, and communication protocols.",
+    title: "IPC Solution",
+    intro:
+      "Embedded PCs for control, automation, and monitoring systems. Search, sort, and compare their specifications, then discuss your project needs with our team.",
+    finderTitle: "Product finder IPC",
+    searchLabel: "Search products",
+    searchPlaceholder: "Search product, CPU, protocol...",
+    columnsButton: "Show/hide columns",
+    showAllColumns: "Show all columns",
+    compare: "Compare",
+    clearSelection: "Clear selection",
+    compareColumn: "Compare",
+    selectRow: "Select to compare",
+    download: "Download Excel",
+    downloadPdf: "Download PDF Catalogue",
+    // {shown} and {total} are replaced with numbers.
+    count: "{shown} of {total} products",
+    empty: "No products match. Try another keyword or show all products.",
+    showAll: "Show all products",
+    source: "Data source: Beckhoff Automation product catalogue.",
+    columns: {
+      product: "Product",
+      productCategory: "Product category",
+      numberOfCores: "Number of cores",
+      cpuType: "CPU type",
+      twincat3PlatformLevel: "TwinCAT 3 platform level",
+      twincat2Support: "TwinCAT 2 support",
+      operatingSystem: "Operating system",
+      protectionRating: "Protection rating",
+      fan: "Fan",
+      productStatus: "Product status",
+      useInHazardousAreas: "Use in hazardous areas",
+      interfaces: "Interfaces",
+      ups: "UPS",
+      tpm: "TPM",
+      moduleType: "Module type",
+      communication: "Communication",
+      masterSlaveFunctionality: "Master/slave functionality",
+      memoryMedium: "Memory medium",
+    },
+    // The Excel values are already English; listed so the keys match id.ts.
+    values: {
+      yes: "yes",
+      no: "no",
+      "regular delivery": "available",
+      "regular delivery (not recommended for new projects)": "available (not recommended for new projects)",
+      "product announcement": "coming soon",
+      "1-second UPS": "1-second UPS",
+      "1-second UPS, integrated": "1-second UPS, integrated",
+      "Basic CPU module": "Basic CPU module",
+    },
+  },
+
+  platformPage: {
+    metaTitle: "Cloud Platform",
+    metaDescription:
+      "TYNEXT Solar: a cloud monitoring platform to monitor and manage multiple solar PV and BESS sites from one dashboard.",
+    title: "TYNEXT Solar",
+    intro:
+      "TYNEXT's cloud monitoring platform brings all your energy assets together in one clear, fast, and easy-to-access dashboard.",
+    featuresLabel: "Key Features",
+    features: [
+      {
+        title: "Multiple Sites Control",
+        body: "Monitor and manage multiple solar PV and BESS sites from one centralised dashboard.",
+      },
+      {
+        title: "Interactive & Real-Time Tools",
+        body: "Interactive maps and real-time data to respond to asset conditions quickly.",
+      },
+      {
+        title: "Easy Reporting",
+        body: "Performance and energy production reports, ready to share with stakeholders.",
+      },
+    ],
+    screenshotAlt:
+      "TYNEXT Solar dashboard: a map of solar PV and BESS sites across Indonesia with installed capacity, energy generation, environmental benefits, and BESS performance.",
+    open: "Open TYNEXT Solar",
   },
 
   contactPage: {
     metaTitle: "Contact",
     office: "Head Office",
     email: "Email Inquiries",
-    phone: "Phone",
+    whatsapp: "WhatsApp",
     formTitle: "Tell us about your project",
   },
 

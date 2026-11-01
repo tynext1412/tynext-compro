@@ -27,7 +27,13 @@ export default async function ContactPage({ params }: PageProps<"/[lang]/kontak"
   const channels: { icon: IconName; label: string; value: string; href: string; external?: boolean }[] = [
     { icon: "map-pin", label: contactPage.office, value: company.office, href: company.mapsUrl, external: true },
     { icon: "mail", label: contactPage.email, value: company.email, href: `mailto:${company.email}` },
-    { icon: "phone", label: contactPage.phone, value: company.phone, href: company.phoneHref },
+    {
+      icon: "phone",
+      label: contactPage.whatsapp,
+      value: company.whatsapp,
+      href: company.whatsappUrl,
+      external: true,
+    },
   ];
 
   return (

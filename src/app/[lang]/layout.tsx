@@ -5,6 +5,7 @@ import { RevealObserver, ScrollToTopOnNavigate } from "@/components/motion";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { EnergyField } from "@/components/three/energy-field";
+import { company } from "@/content/company";
 import { alternatesFor, getDictionary, hasLocale, locales } from "@/i18n";
 import "../globals.css";
 
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   if (!hasLocale(lang)) return {};
   const dict = getDictionary(lang);
   return {
-    metadataBase: new URL("https://www.tynext.com"),
+    metadataBase: new URL(company.websiteUrl),
     title: {
       template: "%s | TYNEXT Energy and Control",
       default: dict.meta.defaultTitle,

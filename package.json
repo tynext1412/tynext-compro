@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "ipc:import": "node scripts/import-ipc-products.mjs"
   },
   "dependencies": {
     "next": "16.4.3",
