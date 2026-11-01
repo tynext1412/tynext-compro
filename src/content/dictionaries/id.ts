@@ -176,7 +176,23 @@ export const id = {
       technology: "Beckhoff C6030, CX2043, EtherCAT",
       imageAlt: "Panel alat uji dengan dua Embedded PC Beckhoff CX2043 berlabel GEN dan GRID",
     },
-  } satisfies Record<ProjectId, { category: string; title: string; body: string; company: string; technology: string; imageAlt: string }>,
+    "wwt-scada": {
+      category: "Industrial Automation · Control System · SCADA",
+      title: "Industrial Control & SCADA System Integration",
+      body: "Fharco Renergy Solutions mengerjakan otomasi berbasis PLC dan integrasi SCADA untuk instalasi pengolahan air limbah (WWT) industri. Pekerjaan meliputi pemrograman PLC, pengembangan sistem kontrol, dan integrasi SCADA untuk pemantauan peralatan secara terpusat, visualisasi proses, dan kendali operasional. Solusi ini menjaga operasi pabrik tetap andal melalui otomasi terintegrasi dan pemantauan proses secara real-time.",
+      company: "UJT",
+      technology: "PLC Programming, Industrial Control System, SCADA Integration",
+      imageAlt: "Layar HMI WWT Control System PT Daewoong Indonesia dengan status pompa, agitator, sensor, dan level switch",
+    },
+    "ikn-solar-scada": {
+      category: "Renewable Energy · Solar PV · SCADA",
+      title: "10 MWp Solar PV Plant SCADA Monitoring & Control System",
+      body: "Terlibat dalam pengembangan dan implementasi sistem SCADA untuk pemantauan dan kendali PLTS 10 MWp di Ibu Kota Nusantara (IKN). Sistem ini memungkinkan pemantauan operasi PLTS secara terpusat, akuisisi data real-time, pemantauan status peralatan, dan visualisasi performa operasional. Integrasinya mendukung pengawasan pembangkit yang efisien, keandalan sistem, dan visibilitas operasional yang lebih baik.",
+      location: "IKN – Nusantara, Indonesia",
+      technology: "SCADA System, PLC Integration, Solar PV Monitoring, Schneider Electric, Huawei",
+      imageAlt: "Layar WebHMI SCADA PLTS IKN menampilkan single line diagram switchgear MV dan inverter PV",
+    },
+  } satisfies Record<ProjectId, ProjectText>,
 
   values: [
     { title: "Excellence", body: "Standar eksekusi terbaik berbasis data dan analisis presisi." },
@@ -210,7 +226,7 @@ export const id = {
     servicesTitle: "Layanan & Spesialisasi Teknik",
     serviceDetail: "Detail layanan",
     projectsEyebrow: "Referensi Proyek",
-    projectsTitle: "Penerapan Teknologi di Proyek Energi Dunia",
+    projectsTitle: "Penerapan Teknologi di Proyek Energi & Industri",
     allProjects: "Semua proyek",
     complianceEyebrow: "Kepatuhan & Mutu",
     complianceTitle: "Sertifikasi & Standar Keselamatan",
@@ -244,11 +260,12 @@ export const id = {
   projectsPage: {
     metaTitle: "Proyek",
     metaDescription:
-      "Referensi proyek: sistem kontrol surya & BESS, integrasi EV charging, dan alat uji konverter grid turbin angin berbasis platform kontrol PC Beckhoff.",
+      "Referensi proyek: sistem kontrol surya & BESS, integrasi EV charging, alat uji konverter grid turbin angin, SCADA pengolahan limbah industri, dan SCADA PLTS 10 MWp di IKN.",
     title: "Referensi Proyek",
     intro:
-      "Penerapan platform kontrol berbasis PC Beckhoff pada pembangkit surya & baterai, pengisian kendaraan listrik, dan pengujian turbin angin.",
+      "Sistem kontrol, otomasi, dan SCADA yang bekerja di pembangkit surya & baterai, pengisian kendaraan listrik, pengujian turbin angin, pengolahan limbah industri, hingga PLTS 10 MWp di IKN.",
     company: "Perusahaan",
+    location: "Lokasi proyek",
     technology: "Teknologi",
     serviceLine: "Lini layanan",
   },
@@ -376,6 +393,17 @@ export const id = {
     home: "Kembali ke Beranda",
     services: "Lihat layanan",
   },
+};
+
+// Teks satu proyek; kartu menampilkan perusahaan atau lokasi, mana yang tersedia.
+export type ProjectText = {
+  category: string;
+  title: string;
+  body: string;
+  company?: string;
+  location?: string;
+  technology: string;
+  imageAlt: string;
 };
 
 // Bentuk kamus tanpa nilai literalnya, supaya bahasa lain wajib mengisi semua kunci yang sama.

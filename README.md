@@ -60,7 +60,7 @@ Teks ada di `src/content/dictionaries/id.ts` dan `en.ts`. Bentuk kamus Inggris d
 | `/id`, `/en` | Beranda: hero dengan peta sistem energi interaktif (Three.js), ringkasan profil, layanan, proyek, sertifikasi |
 | `/{id,en}/tentang` | Profil, visi & misi, keunggulan, nilai perusahaan |
 | `/{id,en}/layanan` | Empat lini layanan (anchor `#engineering`, `#integration`, `#renewable`, `#maintenance`) dan dua pilar solusi. Header berisi simulasi PLTS single-axis tracker (Three.js) |
-| `/{id,en}/proyek` | Referensi proyek dengan foto (`public/image/project1-3.jpeg`, dipetakan di `src/content/project-images.ts`) |
+| `/{id,en}/proyek` | Referensi proyek dengan foto (`public/image/project1-5`, dipetakan di `src/content/project-images.ts`) |
 | `/{id,en}/ipc` | Solusi IPC: product finder Embedded PC (cari, urutkan, sembunyikan kolom, bandingkan, unduh Excel). Data dari `public/docs/beckhoff-productfinder.xlsx`, lihat di bawah |
 | `/{id,en}/platform` | Cloud Platform: TYNEXT Solar (monitoring PLTS & BESS multi-lokasi). Isi `company.platformUrl` untuk menampilkan tombol buka platform |
 | `/{id,en}/kontak` | Kontak dan formulir yang menyusun email (membuka aplikasi email pengunjung, belum ada backend) |

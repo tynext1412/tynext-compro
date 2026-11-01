@@ -37,13 +37,15 @@ export type RoutePath = (typeof routes)[number]["href"];
 export const serviceSlugs = ["engineering", "integration", "renewable", "maintenance"] as const;
 export type ServiceSlug = (typeof serviceSlugs)[number];
 
-// Referensi proyek dan lini layanan terkaitnya; judul, deskripsi, dan teks alt foto ada di kamus, foto di
-// public/image (dipetakan di src/content/project-images.ts).
+// Referensi proyek dan lini layanan terkaitnya (yang pertama menentukan warna); judul, deskripsi, dan teks alt foto
+// ada di kamus, foto di public/image (dipetakan di src/content/project-images.ts). Beranda menampilkan tiga yang pertama.
 export const projectFacts = [
-  { id: "solar-bess-control", service: "integration" },
-  { id: "ev-charging", service: "renewable" },
-  { id: "grid-test-rig", service: "engineering" },
-] as const satisfies readonly { id: string; service: ServiceSlug }[];
+  { id: "solar-bess-control", services: ["integration"] },
+  { id: "ev-charging", services: ["renewable"] },
+  { id: "grid-test-rig", services: ["engineering"] },
+  { id: "wwt-scada", services: ["integration"] },
+  { id: "ikn-solar-scada", services: ["renewable", "integration"] },
+] as const satisfies readonly { id: string; services: readonly [ServiceSlug, ...ServiceSlug[]] }[];
 
 export type ProjectId = (typeof projectFacts)[number]["id"];
 

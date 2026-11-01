@@ -5,6 +5,7 @@ import { CountUp } from "@/components/motion";
 import { SystemMapCanvas, SystemMapLegend, SystemMapProvider } from "@/components/three/system-map";
 import { CtaBand, SectionTitle, buttonSun, serviceTone, textLink, textLinkLight } from "@/components/ui";
 import { certificationCodes, projectFacts, serviceSlugs, stats } from "@/content/company";
+import type { ProjectText } from "@/content/dictionaries/id";
 import { projectImages } from "@/content/project-images";
 import { getDictionary, hasLocale, localePath } from "@/i18n";
 import { notFound } from "next/navigation";
@@ -16,7 +17,15 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   if (!hasLocale(lang)) notFound();
   const dict = getDictionary(lang);
   const { hero, about, home } = dict;
-  const projects = projectFacts.map((fact) => ({ ...fact, ...dict.projects[fact.id] }));
+  const projects = projectFacts.slice(0, 3).map((fact) => {
+    const text: ProjectText = dict.projects[fact.id];
+    return {
+      ...fact,
+      ...text,
+      tone: serviceTone[fact.services[0]],
+      meta: [text.company ?? text.location, ...fact.services.map((slug) => dict.services[slug].title)].join(" · "),
+    };
+  });
   const [featured, ...others] = projects;
   const href = (path: string) => localePath(lang, path);
 
@@ -178,28 +187,28 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                 className="mb-gr-lg aspect-[1.618] w-full rounded-xs object-cover"
               />
               <p
-                className={`inline-block rounded-xs px-gr-sm py-gr-xs font-mono text-gr-xs ${serviceTone[featured.service].chip}`}
+                className={`inline-block rounded-xs px-gr-sm py-gr-xs font-mono text-gr-xs ${featured.tone.chip}`}
               >
                 {featured.category}
               </p>
               <h3 className="display mt-gr-md text-gr-2xl leading-gr-snug sm:text-gr-4xl">{featured.title}</h3>
               <p className="mt-gr-md max-w-lg text-gr-lg leading-golden text-mist">{featured.body}</p>
               <p className="mt-gr-lg font-mono text-gr-xs text-aqua">
-                {featured.company} · {dict.services[featured.service].title}
+                {featured.meta}
               </p>
             </article>
             <div className="divide-y divide-white/15 border-y border-white/15">
               {others.map((project, i) => (
                 <article key={project.id} data-reveal style={revealDelay(150 + i * 120)} className="py-gr-lg">
                   <p
-                    className={`inline-block rounded-xs px-gr-sm py-gr-xs font-mono text-gr-xs ${serviceTone[project.service].chip}`}
+                    className={`inline-block rounded-xs px-gr-sm py-gr-xs font-mono text-gr-xs ${project.tone.chip}`}
                   >
                     {project.category}
                   </p>
                   <h3 className="mt-gr-md text-gr-lg font-semibold">{project.title}</h3>
                   <p className="mt-gr-sm leading-golden text-mist">{project.body}</p>
                   <p className="mt-gr-md font-mono text-gr-xs text-aqua">
-                    {project.company} · {dict.services[project.service].title}
+                    {project.meta}
                   </p>
                 </article>
               ))}

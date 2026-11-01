@@ -7,6 +7,7 @@ import { PageHeader } from "@/components/page-header";
 import { CtaBand, serviceTone } from "@/components/ui";
 import { projectFacts } from "@/content/company";
 import { projectImages } from "@/content/project-images";
+import type { ProjectText } from "@/content/dictionaries/id";
 import { alternatesFor, getDictionary, hasLocale, localePath } from "@/i18n";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/proyek">): Promise<Metadata> {
@@ -33,9 +34,8 @@ export default async function ProjectsPage({ params }: PageProps<"/[lang]/proyek
       <Band tone="paper">
         <ol className="mx-auto max-w-6xl px-gr-md py-gr-xl sm:px-gr-lg lg:px-gr-xl">
           {projectFacts.map((fact, i) => {
-            const project = dict.projects[fact.id];
-            const service = dict.services[fact.service];
-            const tone = serviceTone[fact.service];
+            const project: ProjectText = dict.projects[fact.id];
+            const tone = serviceTone[fact.services[0]];
             return (
               <li
                 key={fact.id}
@@ -62,8 +62,10 @@ export default async function ProjectsPage({ params }: PageProps<"/[lang]/proyek
                   <p className="mt-gr-md text-gr-lg leading-golden text-ink-2">{project.body}</p>
                   <dl className="mt-gr-lg grid gap-gr-md border-t-2 border-ink pt-gr-md text-gr-base sm:grid-cols-3">
                     <div>
-                      <dt className="font-mono text-gr-xs text-ink-2">{projectsPage.company}</dt>
-                      <dd className="mt-gr-xs font-semibold">{project.company}</dd>
+                      <dt className="font-mono text-gr-xs text-ink-2">
+                        {project.company ? projectsPage.company : projectsPage.location}
+                      </dt>
+                      <dd className="mt-gr-xs font-semibold">{project.company ?? project.location}</dd>
                     </div>
                     <div>
                       <dt className="font-mono text-gr-xs text-ink-2">{projectsPage.technology}</dt>
@@ -71,14 +73,16 @@ export default async function ProjectsPage({ params }: PageProps<"/[lang]/proyek
                     </div>
                     <div>
                       <dt className="font-mono text-gr-xs text-ink-2">{projectsPage.serviceLine}</dt>
-                      <dd className="mt-gr-xs">
-                        <Link
-                          href={localePath(lang, `/layanan#${fact.service}`)}
-                          className="font-semibold underline underline-offset-4 hover:text-blue"
-                        >
-                          {service.title}
-                        </Link>
-                      </dd>
+                      {fact.services.map((slug) => (
+                        <dd key={slug} className="mt-gr-xs">
+                          <Link
+                            href={localePath(lang, `/layanan#${slug}`)}
+                            className="font-semibold underline underline-offset-4 hover:text-blue"
+                          >
+                            {dict.services[slug].title}
+                          </Link>
+                        </dd>
+                      ))}
                     </div>
                   </dl>
                 </article>

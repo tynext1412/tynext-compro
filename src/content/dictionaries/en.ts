@@ -186,6 +186,22 @@ export const en: Dictionary = {
       technology: "Beckhoff C6030, CX2043, EtherCAT",
       imageAlt: "Test rig panel with two Beckhoff CX2043 Embedded PCs labelled GEN and GRID",
     },
+    "wwt-scada": {
+      category: "Industrial Automation · Control System · SCADA",
+      title: "Industrial Control & SCADA System Integration",
+      body: "Fharco Renergy Solutions delivers PLC-based automation and SCADA integration for industrial wastewater treatment (WWT) applications. The project involves PLC programming, control system development, and SCADA integration to enable centralized equipment monitoring, process visualization, and operational control. The solution supports reliable plant operation through integrated automation and real-time process monitoring.",
+      company: "UJT",
+      technology: "PLC Programming, Industrial Control System, SCADA Integration",
+      imageAlt: "PT Daewoong Indonesia WWT Control System HMI screen showing pump, agitator, sensor, and level switch status",
+    },
+    "ikn-solar-scada": {
+      category: "Renewable Energy · Solar PV · SCADA",
+      title: "10 MWp Solar PV Plant SCADA Monitoring & Control System",
+      body: "Involved in the development and implementation of a SCADA monitoring and control system for a 10 MWp Solar PV project in Indonesia's New Capital City (IKN). The system enables centralized monitoring of solar PV plant operations, real-time data acquisition, equipment status monitoring, and operational performance visualization. The integration supports efficient plant supervision, system reliability, and improved operational visibility.",
+      location: "IKN – Nusantara, Indonesia",
+      technology: "SCADA System, PLC Integration, Solar PV Monitoring, Schneider Electric, Huawei",
+      imageAlt: "IKN solar PV plant WebHMI SCADA screen showing the MV switchgear and PV inverter single line diagram",
+    },
   },
 
   values: [
@@ -220,7 +236,7 @@ export const en: Dictionary = {
     servicesTitle: "Services & Engineering Specialisations",
     serviceDetail: "Service details",
     projectsEyebrow: "Project References",
-    projectsTitle: "Technology at Work in Energy Projects Worldwide",
+    projectsTitle: "Technology at Work in Energy & Industrial Projects",
     allProjects: "All projects",
     complianceEyebrow: "Compliance & Quality",
     complianceTitle: "Certifications & Safety Standards",
@@ -254,11 +270,12 @@ export const en: Dictionary = {
   projectsPage: {
     metaTitle: "Projects",
     metaDescription:
-      "Project references: solar & BESS control, EV charging integration, and a wind turbine grid converter test rig built on Beckhoff PC-based control.",
+      "Project references: solar & BESS control, EV charging integration, a wind turbine grid converter test rig, industrial wastewater SCADA, and a 10 MWp solar PV SCADA system in IKN.",
     title: "Project References",
     intro:
-      "PC-based Beckhoff control platforms at work in solar & battery plants, EV charging, and wind turbine testing.",
+      "Control, automation, and SCADA systems at work in solar & battery plants, EV charging, wind turbine testing, industrial wastewater treatment, and a 10 MWp solar PV plant in IKN.",
     company: "Company",
+    location: "Project location",
     technology: "Technology",
     serviceLine: "Service line",
   },

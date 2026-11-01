@@ -38,7 +38,7 @@ export default async function ServicesPage({ params }: PageProps<"/[lang]/layana
         <div className="mx-auto max-w-6xl px-gr-md py-gr-2xl sm:px-gr-lg lg:px-gr-xl">
           {serviceSlugs.map((slug, i) => {
             const service = dict.services[slug];
-            const related = projectFacts.filter((p) => p.service === slug);
+            const related = projectFacts.filter((p) => (p.services as readonly string[]).includes(slug));
             const tone = serviceTone[slug];
             return (
               <section
