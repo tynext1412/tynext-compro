@@ -5,6 +5,7 @@ import { CountUp } from "@/components/motion";
 import { SystemMapCanvas, SystemMapLegend, SystemMapProvider } from "@/components/three/system-map";
 import { CtaBand, SectionTitle, buttonSun, serviceTone, textLink, textLinkLight } from "@/components/ui";
 import { certificationCodes, projectFacts, serviceSlugs, stats } from "@/content/company";
+import { projectImages } from "@/content/project-images";
 import { getDictionary, hasLocale, localePath } from "@/i18n";
 import { notFound } from "next/navigation";
 // Foto sementara, di-crop dari slide deck (resolusi rendah). Ganti dengan foto asli resolusi tinggi.
@@ -169,6 +170,13 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
           <div className="mt-gr-2xl grid gap-gr-xl lg:grid-cols-[1.618fr_1fr] lg:gap-gr-2xl">
             <article data-reveal="left">
+              <Image
+                src={projectImages[featured.id]}
+                alt={featured.imageAlt}
+                sizes="(min-width: 1024px) 600px, 100vw"
+                placeholder="blur"
+                className="mb-gr-lg aspect-[1.618] w-full rounded-xs object-cover"
+              />
               <p
                 className={`inline-block rounded-xs px-gr-sm py-gr-xs font-mono text-gr-xs ${serviceTone[featured.service].chip}`}
               >
@@ -177,7 +185,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               <h3 className="display mt-gr-md text-gr-2xl leading-gr-snug sm:text-gr-4xl">{featured.title}</h3>
               <p className="mt-gr-md max-w-lg text-gr-lg leading-golden text-mist">{featured.body}</p>
               <p className="mt-gr-lg font-mono text-gr-xs text-aqua">
-                {home.status}: {featured.status}
+                {featured.company} · {dict.services[featured.service].title}
               </p>
             </article>
             <div className="divide-y divide-white/15 border-y border-white/15">
@@ -191,7 +199,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                   <h3 className="mt-gr-md text-gr-lg font-semibold">{project.title}</h3>
                   <p className="mt-gr-sm leading-golden text-mist">{project.body}</p>
                   <p className="mt-gr-md font-mono text-gr-xs text-aqua">
-                    {home.status}: {project.status} · {dict.services[project.service].title}
+                    {project.company} · {dict.services[project.service].title}
                   </p>
                 </article>
               ))}

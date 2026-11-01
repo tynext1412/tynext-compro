@@ -30,6 +30,16 @@ export default async function PlatformPage({ params }: PageProps<"/[lang]/platfo
   const dict = getDictionary(lang);
   const { platformPage } = dict;
 
+  const screenshot = (
+    <Image
+      src={dashboardShot}
+      alt={platformPage.screenshotAlt}
+      sizes="(min-width: 1024px) 680px, 100vw"
+      placeholder="blur"
+      className="w-full rounded-xs border border-rule shadow-[0_1.618rem_4.236rem_-1.618rem_rgb(14_40_70/0.35)] transition-transform duration-300 group-hover:-translate-y-1 motion-reduce:transition-none"
+    />
+  );
+
   return (
     <>
       <PageHeader tone="navy" title={platformPage.title} intro={platformPage.intro} />
@@ -61,22 +71,32 @@ export default async function PlatformPage({ params }: PageProps<"/[lang]/platfo
           </div>
 
           <figure data-reveal="scale" style={revealDelay(200)} className="min-w-0">
-            <Image
-              src={dashboardShot}
-              alt={platformPage.screenshotAlt}
-              sizes="(min-width: 1024px) 680px, 100vw"
-              placeholder="blur"
-              className="w-full rounded-xs border border-rule shadow-[0_1.618rem_4.236rem_-1.618rem_rgb(14_40_70/0.35)]"
-            />
-            {company.platformUrl && (
+            {company.platformUrl ? (
               <a
                 href={company.platformUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${buttonDeep} mt-gr-lg`}
+                aria-label={platformPage.open}
+                className="group block rounded-xs"
               >
-                {platformPage.open}
+                {screenshot}
               </a>
+            ) : (
+              screenshot
+            )}
+            {company.platformUrl && (
+              <figcaption className="mt-gr-lg flex flex-wrap items-center gap-x-gr-md gap-y-gr-sm">
+                <a
+                  href={company.platformUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${buttonDeep} gap-gr-sm`}
+                >
+                  {platformPage.open}
+                  <Icon name="external" className="size-4" />
+                </a>
+                <span className="font-mono text-gr-xs text-ink-2">{new URL(company.platformUrl).host}</span>
+              </figcaption>
             )}
           </figure>
         </div>

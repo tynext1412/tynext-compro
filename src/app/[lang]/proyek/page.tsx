@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Band, revealDelay } from "@/components/band";
 import { PageHeader } from "@/components/page-header";
 import { CtaBand, serviceTone } from "@/components/ui";
 import { projectFacts } from "@/content/company";
+import { projectImages } from "@/content/project-images";
 import { alternatesFor, getDictionary, hasLocale, localePath } from "@/i18n";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/proyek">): Promise<Metadata> {
@@ -37,48 +39,49 @@ export default async function ProjectsPage({ params }: PageProps<"/[lang]/proyek
             return (
               <li
                 key={fact.id}
-                className="grid gap-gr-lg border-b border-rule py-gr-2xl md:grid-cols-[1fr_2.618fr_1.618fr] md:gap-gr-xl"
+                className="grid gap-gr-lg border-b border-rule py-gr-2xl lg:grid-cols-[1fr_1.618fr] lg:gap-gr-xl"
               >
-                <span
-                  data-reveal="scale"
-                  aria-hidden="true"
-                  className={`display grid size-28 place-items-center rounded-xs text-gr-4xl md:size-36 md:text-gr-4xl ${tone.tile}`}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                <figure data-reveal="scale" className="relative min-w-0 self-start">
+                  <Image
+                    src={projectImages[fact.id]}
+                    alt={project.imageAlt}
+                    sizes="(min-width: 1024px) 400px, 100vw"
+                    placeholder="blur"
+                    className="aspect-[1.618] w-full rounded-xs object-cover"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className={`display absolute top-0 left-0 grid size-16 place-items-center rounded-tl-xs rounded-br-xs text-gr-2xl ${tone.tile}`}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </figure>
                 <article data-reveal style={revealDelay(100)}>
                   <p className="font-mono text-gr-xs text-blue">{project.category}</p>
-                  <h2 className="display mt-gr-sm text-gr-2xl leading-gr-snug sm:text-gr-2xl">{project.title}</h2>
-                  <p className="mt-gr-md max-w-xl text-gr-lg leading-golden text-ink-2">{project.body}</p>
+                  <h2 className="display mt-gr-sm text-gr-2xl leading-gr-snug">{project.title}</h2>
+                  <p className="mt-gr-md text-gr-lg leading-golden text-ink-2">{project.body}</p>
+                  <dl className="mt-gr-lg grid gap-gr-md border-t-2 border-ink pt-gr-md text-gr-base sm:grid-cols-3">
+                    <div>
+                      <dt className="font-mono text-gr-xs text-ink-2">{projectsPage.company}</dt>
+                      <dd className="mt-gr-xs font-semibold">{project.company}</dd>
+                    </div>
+                    <div>
+                      <dt className="font-mono text-gr-xs text-ink-2">{projectsPage.technology}</dt>
+                      <dd className="mt-gr-xs">{project.technology}</dd>
+                    </div>
+                    <div>
+                      <dt className="font-mono text-gr-xs text-ink-2">{projectsPage.serviceLine}</dt>
+                      <dd className="mt-gr-xs">
+                        <Link
+                          href={localePath(lang, `/layanan#${fact.service}`)}
+                          className="font-semibold underline underline-offset-4 hover:text-blue"
+                        >
+                          {service.title}
+                        </Link>
+                      </dd>
+                    </div>
+                  </dl>
                 </article>
-                <dl
-                  data-reveal
-                  style={revealDelay(200)}
-                  className="space-y-gr-md self-start border-t-2 border-ink pt-gr-md text-gr-base"
-                >
-                  <div>
-                    <dt className="font-mono text-gr-xs text-ink-2">{projectsPage.status}</dt>
-                    <dd className="mt-gr-xs flex items-center gap-gr-sm font-semibold">
-                      {/* Penanda status: kotak terisi untuk kontrak yang masih berjalan, kotak garis untuk yang selesai. */}
-                      <span
-                        aria-hidden="true"
-                        className={`size-2.5 ${fact.ongoing ? "bg-teal" : "border-2 border-ink"}`}
-                      />
-                      {project.status}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="font-mono text-gr-xs text-ink-2">{projectsPage.serviceLine}</dt>
-                    <dd className="mt-gr-xs">
-                      <Link
-                        href={localePath(lang, `/layanan#${fact.service}`)}
-                        className="font-semibold underline underline-offset-4 hover:text-blue"
-                      >
-                        {service.title}
-                      </Link>
-                    </dd>
-                  </div>
-                </dl>
               </li>
             );
           })}

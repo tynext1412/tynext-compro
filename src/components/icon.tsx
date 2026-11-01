@@ -34,6 +34,7 @@ const paths = {
   ),
   columns: <path d="M4 7h9M17 7h3M4 17h3M11 17h9M15 4.5v5M9 14.5v5" />,
   download: <path d="M12 3.5v12M7 11l5 5 5-5M4 20.5h16" />,
+  external: <path d="M13.5 4h6.5v6.5M20 4l-9 9M17 13.5V20H4V7h6.5" />,
   "sort-none": <path d="M8 9.5l4-4 4 4M8 14.5l4 4 4-4" />,
   "sort-asc": <path d="M12 19V5.5M7 10l5-5 5 5" />,
   "sort-desc": <path d="M12 5v13.5M7 14l5 5 5-5" />,

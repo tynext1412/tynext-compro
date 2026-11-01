@@ -51,7 +51,7 @@ Langkah:
 
 Semua halaman tersedia di `/id/...` dan `/en/...` dengan path yang sama (mis. `/id/layanan` dan `/en/layanan`). `src/proxy.ts` mengarahkan URL tanpa awalan bahasa: pilihan terakhir dari tombol ID/EN (cookie `NEXT_LOCALE`), lalu bahasa browser, lalu Indonesia sebagai bawaan. Setiap halaman mencantumkan `hreflang` untuk kedua bahasa.
 
-Teks ada di `src/content/dictionaries/id.ts` dan `en.ts`. Bentuk kamus Inggris diturunkan dari kamus Indonesia, jadi build gagal bila ada teks yang belum diterjemahkan. Fakta yang sama di semua bahasa (kontak, slug layanan, status proyek, angka) ada di `src/content/company.ts`.
+Teks ada di `src/content/dictionaries/id.ts` dan `en.ts`. Bentuk kamus Inggris diturunkan dari kamus Indonesia, jadi build gagal bila ada teks yang belum diterjemahkan. Fakta yang sama di semua bahasa (kontak, slug layanan, lini layanan tiap proyek, angka) ada di `src/content/company.ts`.
 
 ## Halaman
 
@@ -60,7 +60,7 @@ Teks ada di `src/content/dictionaries/id.ts` dan `en.ts`. Bentuk kamus Inggris d
 | `/id`, `/en` | Beranda: hero dengan peta sistem energi interaktif (Three.js), ringkasan profil, layanan, proyek, sertifikasi |
 | `/{id,en}/tentang` | Profil, visi & misi, keunggulan, nilai perusahaan |
 | `/{id,en}/layanan` | Empat lini layanan (anchor `#engineering`, `#integration`, `#renewable`, `#maintenance`) dan dua pilar solusi. Header berisi simulasi PLTS single-axis tracker (Three.js) |
-| `/{id,en}/proyek` | Portofolio proyek dan status |
+| `/{id,en}/proyek` | Referensi proyek dengan foto (`public/image/project1-3.jpeg`, dipetakan di `src/content/project-images.ts`) |
 | `/{id,en}/ipc` | Solusi IPC: product finder Embedded PC (cari, urutkan, sembunyikan kolom, bandingkan, unduh Excel). Data dari `public/docs/beckhoff-productfinder.xlsx`, lihat di bawah |
 | `/{id,en}/platform` | Cloud Platform: TYNEXT Solar (monitoring PLTS & BESS multi-lokasi). Isi `company.platformUrl` untuk menampilkan tombol buka platform |
 | `/{id,en}/kontak` | Kontak dan formulir yang menyusun email (membuka aplikasi email pengunjung, belum ada backend) |
@@ -70,7 +70,7 @@ Teks ada di `src/content/dictionaries/id.ts` dan `en.ts`. Bentuk kamus Inggris d
 | Lokasi | Isi |
 | --- | --- |
 | `src/content/dictionaries/` | Teks Bahasa Indonesia (`id.ts`) dan Inggris (`en.ts`). Ubah konten di sini. |
-| `src/content/company.ts` | Data yang sama di semua bahasa: kontak, route, slug layanan, status proyek |
+| `src/content/company.ts` | Data yang sama di semua bahasa: kontak, route, slug layanan, lini layanan tiap proyek |
 | `src/i18n.ts`, `src/proxy.ts` | Daftar bahasa, kamus, helper path, dan pengalihan bahasa |
 | `src/components/three/` | `system-map.tsx` (peta sistem interaktif di hero), `energy-field.tsx` (latar arus seluruh situs, digerakkan scroll), `use-three-scene.ts` (siklus hidup renderer, jeda saat di luar layar, reduced motion), `solar-tracker.tsx` |
 | `src/components/band.tsx` | Section berwarna (`data-tone`) yang dibaca lapisan arus |
@@ -82,4 +82,4 @@ Teks ada di `src/content/dictionaries/id.ts` dan `en.ts`. Bentuk kamus Inggris d
 ## Yang masih perlu diganti
 
 - **Foto fasilitas** (`src/assets/bess-facility.jpg`): hasil crop dari screenshot slide, resolusi rendah (413×277). Ganti dengan foto asli.
-- **Formulir kontak**: saat ini membuka `mailto:`. Jika ingin pesan masuk langsung ke server, tambahkan Server Action atau layanan email.
+- **Formulir kontak**: dikirim sebagai JSON ke `POST https://utilities.tynext.co.id/api/contact` (alamat di `company.contactApiUrl`, bisa diganti saat build lewat `NEXT_PUBLIC_CONTACT_API_URL`). Syarat di sisi API: `ALLOWED_ORIGINS` memuat `https://tynext.co.id` (dan domain Vercel/preview bila dipakai), serta `Access-Control-Expose-Headers: Retry-After` supaya pesan batas kirim (429) bisa menampilkan sisa waktu. Field `website` adalah honeypot anti-bot.

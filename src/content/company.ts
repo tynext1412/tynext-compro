@@ -7,13 +7,17 @@ export const company = {
   website: "tynext.co.id",
   websiteUrl: "https://tynext.co.id",
   email: "sales@tynext.co.id",
+  // API pengirim email formulir Kontak (POST /api/contact). Bisa diganti saat build, mis. untuk uji lokal:
+  // NEXT_PUBLIC_CONTACT_API_URL=http://localhost:8080 npm run build
+  contactApiUrl: process.env.NEXT_PUBLIC_CONTACT_API_URL ?? "https://utilities.tynext.co.id",
   whatsapp: "+62 857-1371-3288",
   whatsappUrl: "https://wa.me/6285713713288",
   city: "Jakarta, Indonesia",
   office: "Jakarta Selatan, Indonesia",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=Jakarta+Selatan",
-  // Alamat login TYNEXT Solar. Selama kosong, tombol "Buka TYNEXT Solar" di halaman Cloud Platform tidak ditampilkan.
-  platformUrl: "",
+  // Alamat TYNEXT Solar. Dipakai tombol "Buka TYNEXT Solar" dan tangkapan layar dashboard di halaman Cloud Platform;
+  // bila dikosongkan, keduanya tidak menjadi tautan.
+  platformUrl: "https://ems.tynext.co.id",
 };
 
 // Urutan navigasi situs. Path sama untuk setiap bahasa, diawali /id atau /en.
@@ -33,12 +37,13 @@ export type RoutePath = (typeof routes)[number]["href"];
 export const serviceSlugs = ["engineering", "integration", "renewable", "maintenance"] as const;
 export type ServiceSlug = (typeof serviceSlugs)[number];
 
-// Proyek: lini layanan dan status berjalan/selesai; judul dan deskripsi ada di kamus.
+// Referensi proyek dan lini layanan terkaitnya; judul, deskripsi, dan teks alt foto ada di kamus, foto di
+// public/image (dipetakan di src/content/project-images.ts).
 export const projectFacts = [
-  { id: "microgrid", service: "renewable", ongoing: false },
-  { id: "scada", service: "integration", ongoing: false },
-  { id: "pv-om", service: "maintenance", ongoing: true },
-] as const satisfies readonly { id: string; service: ServiceSlug; ongoing: boolean }[];
+  { id: "solar-bess-control", service: "integration" },
+  { id: "ev-charging", service: "renewable" },
+  { id: "grid-test-rig", service: "engineering" },
+] as const satisfies readonly { id: string; service: ServiceSlug }[];
 
 export type ProjectId = (typeof projectFacts)[number]["id"];
 

@@ -162,23 +162,29 @@ export const en: Dictionary = {
   ],
 
   projects: {
-    microgrid: {
-      category: "Hybrid Microgrid",
-      title: "Hybrid Solar & Battery System",
-      body: "Development of a hybrid solar-battery microgrid for a remote island to secure a 24/7 power supply.",
-      status: "Completed & Operational",
+    "solar-bess-control": {
+      category: "Solar & BESS · Power Plant Control",
+      title: "Solar & BESS Control System",
+      body: "Beckhoff provides a decentralised PC-based control platform (CX series + TwinCAT) for the BCI and PPC of Power Electronics' solar and battery plants (120 GW of capacity worldwide). Using Modbus TCP and ADS communication, the system coordinates 160 power blocks at once and delivers a 330 MW dynamic response in just 110 ms, meeting strict grid ancillary service requirements.",
+      company: "Power Electronics",
+      technology: "Beckhoff CX series, TwinCAT, Modbus TCP, ADS",
+      imageAlt: "Beckhoff CX2033 and CX2100 Embedded PCs installed in a solar and battery control panel",
     },
-    scada: {
-      category: "Monitoring & Control",
-      title: "SCADA Upgrade & RTU Integration",
-      body: "SCADA system upgrade and RTU integration across a 20 kV distribution network to improve main grid reliability.",
-      status: "Completed & Integrated",
+    "ev-charging": {
+      category: "EV Charging · Energy Management",
+      title: "Smart EV Charging & Energy Integration",
+      body: "German electrical contractor Elektro Beckhoff integrated the reev energy management software, bringing PV, battery storage, and EV chargers together in one smart platform. This hardware-independent solution enables scalable power management (up to 600 kW DC stations) and supports dynamic electricity tariffs for more efficient charging.",
+      company: "Elektro Beckhoff",
+      technology: "reev energy management, PV, BESS, DC chargers up to 600 kW",
+      imageAlt: "Solar-roofed EV charging station with an Elektro Beckhoff van charging",
     },
-    "pv-om": {
-      category: "Operation & Maintenance",
-      title: "Floating & Rooftop PV O&M",
-      body: "Scheduled maintenance, troubleshooting, and performance monitoring for industrial rooftop PV and floating PV plants.",
-      status: "Ongoing Service Contract",
+    "grid-test-rig": {
+      category: "Grid scenario & fault condition simulation",
+      title: "Grid Converter Test Rig",
+      body: "Beckhoff provides a PC-based real-time control and simulation platform (C6030 & CX2043) with EtherCAT for Siemens Gamesa's wind turbine converter test rig. The system enables microsecond-level grid simulation and automated testing, ensuring accurate validation of wind turbine performance before certification.",
+      company: "Siemens Gamesa",
+      technology: "Beckhoff C6030, CX2043, EtherCAT",
+      imageAlt: "Test rig panel with two Beckhoff CX2043 Embedded PCs labelled GEN and GRID",
     },
   },
 
@@ -213,12 +219,11 @@ export const en: Dictionary = {
     servicesEyebrow: "Core Services",
     servicesTitle: "Services & Engineering Specialisations",
     serviceDetail: "Service details",
-    projectsEyebrow: "Project Portfolio",
-    projectsTitle: "Featured Project Experience",
+    projectsEyebrow: "Project References",
+    projectsTitle: "Technology at Work in Energy Projects Worldwide",
     allProjects: "All projects",
     complianceEyebrow: "Compliance & Quality",
     complianceTitle: "Certifications & Safety Standards",
-    status: "Status",
   },
 
   aboutPage: {
@@ -249,10 +254,12 @@ export const en: Dictionary = {
   projectsPage: {
     metaTitle: "Projects",
     metaDescription:
-      "TYNEXT project portfolio: hybrid solar-battery microgrid, 20 kV SCADA & RTU upgrade, and solar PV O&M.",
-    title: "Featured Project Experience",
-    intro: "Microgrid, SCADA, and solar PV maintenance projects that are already running or currently in our hands.",
-    status: "Status",
+      "Project references: solar & BESS control, EV charging integration, and a wind turbine grid converter test rig built on Beckhoff PC-based control.",
+    title: "Project References",
+    intro:
+      "PC-based Beckhoff control platforms at work in solar & battery plants, EV charging, and wind turbine testing.",
+    company: "Company",
+    technology: "Technology",
     serviceLine: "Service line",
   },
 
@@ -357,20 +364,19 @@ export const en: Dictionary = {
     otherService: "Other",
     message: "Message",
     messagePlaceholder: "Tell us the location, capacity, or system you want to build.",
-    submit: "Compose an Email to Our Team",
-    submitHint: "This button opens your email app with the message already filled in.",
-    sent: "Your email app should now be open. If it isn't, send your message directly to",
+    submit: "Send Message",
+    sending: "Sending...",
+    submitHint: "Our team will reply to the email address you enter.",
+    sent: "Thank you, your message has been sent. Our team will be in touch soon.",
     errors: {
       nameRequired: "Please enter your name.",
       emailRequired: "Please enter your email.",
       emailInvalid: "That email address doesn't look right.",
+      serviceRequired: "Please choose a service.",
       messageShort: "Please describe your needs in at least 10 characters.",
-    },
-    mail: {
-      subject: "Project discussion",
-      name: "Name",
-      company: "Company",
-      email: "Email",
+      // {seconds} is replaced with the Retry-After value.
+      rateLimited: "Too many messages from your network. Try again in {seconds} seconds, or email us directly at",
+      failed: "Your message wasn't sent. Please try again shortly, or email us directly at",
     },
   },
 

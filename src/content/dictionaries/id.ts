@@ -152,25 +152,31 @@ export const id = {
   ],
 
   projects: {
-    microgrid: {
-      category: "Hybrid Microgrid",
-      title: "PLTS Hybrid & Battery System",
-      body: "Pengembangan sistem microgrid hybrid surya-baterai untuk pulau terpencil guna menjamin pasokan energi 24/7.",
-      status: "Completed & Operational",
+    "solar-bess-control": {
+      category: "Solar & BESS · Power Plant Control",
+      title: "Solar & BESS Control System",
+      body: "Beckhoff menyediakan platform kontrol terdesentralisasi berbasis PC (CX series + TwinCAT) untuk BCI dan PPC pada sistem pembangkit surya & baterai milik Power Electronics (120 GW kapasitas global). Dengan komunikasi Modbus TCP dan ADS, sistem ini mampu mengoordinasikan 160 blok daya sekaligus dan mencapai respons dinamis 330 MW hanya dalam 110 ms, memenuhi syarat ketat layanan ancillary grid.",
+      company: "Power Electronics",
+      technology: "Beckhoff CX series, TwinCAT, Modbus TCP, ADS",
+      imageAlt: "Embedded PC Beckhoff CX2033 dan CX2100 terpasang di panel kontrol sistem surya & baterai",
     },
-    scada: {
-      category: "Monitoring & Control",
-      title: "SCADA Upgrade & RTU Integration",
-      body: "Peningkatan sistem SCADA dan integrasi RTU jaringan distribusi 20 kV untuk keandalan jaringan listrik utama.",
-      status: "Completed & Integrated",
+    "ev-charging": {
+      category: "EV Charging · Energy Management",
+      title: "Smart EV Charging & Energy Integration",
+      body: "Integrasi software manajemen energi reev oleh kontraktor listrik Jerman, Elektro Beckhoff, yang berhasil menyatukan sistem PV, penyimpanan baterai, dan EV charger dalam satu platform cerdas. Solusi hardware-independent ini memungkinkan pengelolaan daya yang skalabel (hingga stasiun DC 600 kW) dan mendukung tarif listrik dinamis untuk pengisian daya yang lebih efisien.",
+      company: "Elektro Beckhoff",
+      technology: "reev energy management, PV, BESS, DC charger hingga 600 kW",
+      imageAlt: "Stasiun pengisian kendaraan listrik beratap panel surya dengan mobil van Elektro Beckhoff sedang mengisi daya",
     },
-    "pv-om": {
-      category: "Operation & Maintenance",
-      title: "Floating & Rooftop PV O&M",
-      body: "Layanan perawatan berkala, troubleshooting, dan monitoring performa untuk PLTS Atap Industri dan Floating PV.",
-      status: "Ongoing Service Contract",
+    "grid-test-rig": {
+      category: "Simulasi skenario grid & kondisi gangguan",
+      title: "Grid Converter Test Rig",
+      body: "Beckhoff menyediakan platform kontrol dan simulasi real-time berbasis PC (C6030 & CX2043) dengan EtherCAT untuk alat uji konverter turbin angin milik Siemens Gamesa. Sistem ini memungkinkan simulasi grid berkecepatan mikrodetik dan pengujian otomatis, memastikan validasi performa turbin angin yang akurat sebelum sertifikasi.",
+      company: "Siemens Gamesa",
+      technology: "Beckhoff C6030, CX2043, EtherCAT",
+      imageAlt: "Panel alat uji dengan dua Embedded PC Beckhoff CX2043 berlabel GEN dan GRID",
     },
-  } satisfies Record<ProjectId, { category: string; title: string; body: string; status: string }>,
+  } satisfies Record<ProjectId, { category: string; title: string; body: string; company: string; technology: string; imageAlt: string }>,
 
   values: [
     { title: "Excellence", body: "Standar eksekusi terbaik berbasis data dan analisis presisi." },
@@ -203,12 +209,11 @@ export const id = {
     servicesEyebrow: "Layanan Utama",
     servicesTitle: "Layanan & Spesialisasi Teknik",
     serviceDetail: "Detail layanan",
-    projectsEyebrow: "Portofolio Proyek",
-    projectsTitle: "Pengalaman Proyek Unggulan",
+    projectsEyebrow: "Referensi Proyek",
+    projectsTitle: "Penerapan Teknologi di Proyek Energi Dunia",
     allProjects: "Semua proyek",
     complianceEyebrow: "Kepatuhan & Mutu",
     complianceTitle: "Sertifikasi & Standar Keselamatan",
-    status: "Status",
   },
 
   aboutPage: {
@@ -239,10 +244,12 @@ export const id = {
   projectsPage: {
     metaTitle: "Proyek",
     metaDescription:
-      "Portofolio proyek TYNEXT: microgrid hybrid surya-baterai, upgrade SCADA & RTU 20 kV, serta O&M PLTS.",
-    title: "Pengalaman Proyek Unggulan",
-    intro: "Proyek microgrid, SCADA, dan pemeliharaan PLTS yang sudah beroperasi atau sedang kami tangani.",
-    status: "Status",
+      "Referensi proyek: sistem kontrol surya & BESS, integrasi EV charging, dan alat uji konverter grid turbin angin berbasis platform kontrol PC Beckhoff.",
+    title: "Referensi Proyek",
+    intro:
+      "Penerapan platform kontrol berbasis PC Beckhoff pada pembangkit surya & baterai, pengisian kendaraan listrik, dan pengujian turbin angin.",
+    company: "Perusahaan",
+    technology: "Teknologi",
     serviceLine: "Lini layanan",
   },
 
@@ -347,20 +354,19 @@ export const id = {
     otherService: "Lainnya",
     message: "Pesan",
     messagePlaceholder: "Ceritakan lokasi, kapasitas, atau sistem yang ingin dikerjakan.",
-    submit: "Susun Email ke Tim Kami",
-    submitHint: "Tombol ini membuka aplikasi email Anda dengan pesan yang sudah terisi.",
-    sent: "Aplikasi email Anda seharusnya sudah terbuka. Jika tidak, kirim pesan langsung ke",
+    submit: "Kirim Pesan",
+    sending: "Mengirim...",
+    submitHint: "Tim kami akan membalas ke alamat email yang Anda isi.",
+    sent: "Terima kasih, pesan Anda sudah terkirim. Tim kami akan segera menghubungi Anda.",
     errors: {
       nameRequired: "Nama wajib diisi.",
       emailRequired: "Email wajib diisi.",
       emailInvalid: "Format email belum benar.",
+      serviceRequired: "Pilih kebutuhan layanan.",
       messageShort: "Ceritakan kebutuhan Anda minimal 10 karakter.",
-    },
-    mail: {
-      subject: "Diskusi proyek",
-      name: "Nama",
-      company: "Perusahaan",
-      email: "Email",
+      // {seconds} diganti angka dari header Retry-After.
+      rateLimited: "Terlalu banyak pesan dari jaringan Anda. Coba lagi dalam {seconds} detik, atau email langsung ke",
+      failed: "Pesan belum terkirim. Coba lagi sebentar lagi, atau email langsung ke",
     },
   },
 

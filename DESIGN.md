@@ -48,7 +48,7 @@ Proporsi seluruh situs diturunkan dari φ. Token ada di `src/app/globals.css` de
 | Jarak (`p-`, `m-`, `gap-`) | `gr-xs` 0,382 · `gr-sm` 0,618 · `gr-md` 1 · `gr-lg` 1,618 · `gr-xl` 2,618 · `gr-2xl` 4,236 · `gr-3xl` 6,854 rem; tiap langkah ×φ |
 | Ukuran huruf (`text-gr-*`) | 0,786 · 1 · 1,272 · 1,618 · 2,058 · 2,618 · 3,33 · 4,236 rem; langkah √φ, tiap dua langkah ×φ |
 | Line-height | Teks 1,618; judul 1,0 sampai 1,272 |
-| Kolom | Semua tata letak dua kolom 1 : 1,618 (38,2% / 61,8%); halaman Proyek 1 : φ² : φ |
+| Kolom | Semua tata letak dua kolom 1 : 1,618 (38,2% / 61,8%); halaman Proyek foto 1 : teks 1,618 |
 | Bidang | Foto, kanvas peta, header Layanan, dan tile layanan memakai persegi panjang emas 1,618 : 1 (tile beranda 1 : 1,618 tegak) |
 | Header | Tinggi 6rem (mengikuti referensi desain) |
 | Container | Padding samping 1 → 1,618 → 2,618 rem mengikuti lebar layar |
